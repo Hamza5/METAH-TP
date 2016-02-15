@@ -22,6 +22,8 @@ public class RubiksCubeSolver {
                 RubiksCube cube = new RubiksCube(cube_content);
                 cube.up();
                 System.out.println(cube);
+                cube.up_inverted();
+                System.out.println(cube);
             } catch (IOException ex){
                 System.err.println("Impossible de lire le fichier : "+args[0]);
             }
