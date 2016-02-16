@@ -97,138 +97,170 @@ public class RubiksCube {
         // Replace the previous state
         state = changedState.toString();
     }
-    
-    public void BottomLeft(){
+
+   public void left_inverted(){
         StringBuilder changedState = new StringBuilder(state);
-       
-      
-        changedState.setCharAt(15, state.charAt(33));
-        changedState.setCharAt(16, state.charAt(34));
-        changedState.setCharAt(17, state.charAt(35));
-        
-        changedState.setCharAt(24, state.charAt(15));
-        changedState.setCharAt(25, state.charAt(16));
-        changedState.setCharAt(26, state.charAt(17));
-        
-        changedState.setCharAt(33, state.charAt(42));
-        changedState.setCharAt(34, state.charAt(43));
-        changedState.setCharAt(35, state.charAt(44));
-       
-        changedState.setCharAt(42, state.charAt(24));
-        changedState.setCharAt(43, state.charAt(25));
-        changedState.setCharAt(44, state.charAt(26));
-        
-        changedState.setCharAt(45, state.charAt(47));
-        changedState.setCharAt(46, state.charAt(50));
-        changedState.setCharAt(47, state.charAt(53));
-        changedState.setCharAt(48, state.charAt(46));
-        changedState.setCharAt(49, state.charAt(49));
-        changedState.setCharAt(50, state.charAt(52));
-        changedState.setCharAt(51, state.charAt(45));
-        changedState.setCharAt(52, state.charAt(48));
-        changedState.setCharAt(53, state.charAt(51));
+        // The top face
+        changedState.setCharAt(0, state.charAt(9));
+        changedState.setCharAt(3, state.charAt(12));
+        changedState.setCharAt(6, state.charAt(15));
+        // The front face
+        changedState.setCharAt(15, state.charAt(47));
+        changedState.setCharAt(12, state.charAt(50));
+        changedState.setCharAt(9, state.charAt(53));
+        // The left face
+        changedState.setCharAt(24, state.charAt(18));
+        changedState.setCharAt(21, state.charAt(19));
+        changedState.setCharAt(18, state.charAt(20));
+        changedState.setCharAt(25, state.charAt(21));
+        changedState.setCharAt(19, state.charAt(23));
+        changedState.setCharAt(26, state.charAt(24));
+        changedState.setCharAt(23, state.charAt(25));
+        changedState.setCharAt(20, state.charAt(26));
+        // The back face
+        changedState.setCharAt(44, state.charAt(0));
+        changedState.setCharAt(41, state.charAt(3));
+        changedState.setCharAt(38, state.charAt(6));
+        // The bottom face
+        changedState.setCharAt(47, state.charAt(38));
+        changedState.setCharAt(50, state.charAt(41));
+        changedState.setCharAt(53, state.charAt(44));
         // Replace the previous state
         state = changedState.toString();
     }
-    
-    public void BottomRight(){
-        StringBuilder changedState = new StringBuilder(state);
-       
+   
+   public void BottomLeft(){
+       StringBuilder changedState = new StringBuilder(state);
       
-        changedState.setCharAt(15, state.charAt(24));
-        changedState.setCharAt(16, state.charAt(25));
-        changedState.setCharAt(17, state.charAt(26));
-        
-        changedState.setCharAt(24, state.charAt(42));
-        changedState.setCharAt(25, state.charAt(42));
-        changedState.setCharAt(26, state.charAt(44));
-        
-        changedState.setCharAt(33, state.charAt(15));
-        changedState.setCharAt(34, state.charAt(16));
-        changedState.setCharAt(35, state.charAt(17));
+     
+       changedState.setCharAt(15, state.charAt(33));
+       changedState.setCharAt(16, state.charAt(34));
+       changedState.setCharAt(17, state.charAt(35));
        
-        changedState.setCharAt(42, state.charAt(33));
-        changedState.setCharAt(43, state.charAt(34));
-        changedState.setCharAt(44, state.charAt(35));
-        
-        changedState.setCharAt(45, state.charAt(51));
-        changedState.setCharAt(46, state.charAt(48));
-        changedState.setCharAt(47, state.charAt(45));
-        changedState.setCharAt(48, state.charAt(52));
-        changedState.setCharAt(49, state.charAt(49));
-        changedState.setCharAt(50, state.charAt(46));
-        changedState.setCharAt(51, state.charAt(53));
-        changedState.setCharAt(52, state.charAt(50));
-        changedState.setCharAt(53, state.charAt(47));
-        // Replace the previous state
-        state = changedState.toString();
-    }
-    
-    public void BackLeft(){
-        StringBuilder changedState = new StringBuilder(state);
+       changedState.setCharAt(24, state.charAt(15));
+       changedState.setCharAt(25, state.charAt(16));
+       changedState.setCharAt(26, state.charAt(17));
        
+       changedState.setCharAt(33, state.charAt(42));
+       changedState.setCharAt(34, state.charAt(43));
+       changedState.setCharAt(35, state.charAt(44));
       
-        changedState.setCharAt(0, state.charAt(27));
-        changedState.setCharAt(1, state.charAt(28));
-        changedState.setCharAt(2, state.charAt(29));
-        
-        changedState.setCharAt(18, state.charAt(0));
-        changedState.setCharAt(21, state.charAt(1));
-        changedState.setCharAt(24, state.charAt(2));
-        
-        changedState.setCharAt(29, state.charAt(47));
-        changedState.setCharAt(32, state.charAt(46));
-        changedState.setCharAt(35, state.charAt(45));
+       changedState.setCharAt(42, state.charAt(24));
+       changedState.setCharAt(43, state.charAt(25));
+       changedState.setCharAt(44, state.charAt(26));
        
-        changedState.setCharAt(36, state.charAt(42));
-        changedState.setCharAt(37, state.charAt(39));
-        changedState.setCharAt(38, state.charAt(36));
-        changedState.setCharAt(39, state.charAt(43));
-        changedState.setCharAt(40, state.charAt(40));
-        changedState.setCharAt(41, state.charAt(37));
-        changedState.setCharAt(42, state.charAt(44));
-        changedState.setCharAt(43, state.charAt(42));
-        changedState.setCharAt(44, state.charAt(38));
-        
-        changedState.setCharAt(51, state.charAt(18));
-        changedState.setCharAt(52, state.charAt(21));
-        changedState.setCharAt(53, state.charAt(24));
-        // Replace the previous state
-        state = changedState.toString();
-    }
-    
-    public void BackRight(){
-        StringBuilder changedState = new StringBuilder(state);
-       
+       changedState.setCharAt(45, state.charAt(47));
+       changedState.setCharAt(46, state.charAt(50));
+       changedState.setCharAt(47, state.charAt(53));
+       changedState.setCharAt(48, state.charAt(46));
+       changedState.setCharAt(49, state.charAt(49));
+       changedState.setCharAt(50, state.charAt(52));
+       changedState.setCharAt(51, state.charAt(45));
+       changedState.setCharAt(52, state.charAt(48));
+       changedState.setCharAt(53, state.charAt(51));
+       // Replace the previous state
+       state = changedState.toString();
+   }
+   
+   public void BottomRight(){
+       StringBuilder changedState = new StringBuilder(state);
       
-        changedState.setCharAt(0, state.charAt(18));
-        changedState.setCharAt(1, state.charAt(21));
-        changedState.setCharAt(2, state.charAt(24));
-        
-        changedState.setCharAt(18, state.charAt(51));
-        changedState.setCharAt(21, state.charAt(52));
-        changedState.setCharAt(24, state.charAt(53));
-        
-        changedState.setCharAt(29, state.charAt(0));
-        changedState.setCharAt(32, state.charAt(1));
-        changedState.setCharAt(35, state.charAt(2));
+     
+       changedState.setCharAt(15, state.charAt(24));
+       changedState.setCharAt(16, state.charAt(25));
+       changedState.setCharAt(17, state.charAt(26));
        
-        changedState.setCharAt(36, state.charAt(38));
-        changedState.setCharAt(37, state.charAt(41));
-        changedState.setCharAt(38, state.charAt(44));
-        changedState.setCharAt(39, state.charAt(37));
-        changedState.setCharAt(40, state.charAt(40));
-        changedState.setCharAt(41, state.charAt(43));
-        changedState.setCharAt(42, state.charAt(36));
-        changedState.setCharAt(43, state.charAt(39));
-        changedState.setCharAt(44, state.charAt(42));
-        
-        changedState.setCharAt(51, state.charAt(29));
-        changedState.setCharAt(52, state.charAt(32));
-        changedState.setCharAt(53, state.charAt(35));
-        // Replace the previous state
-        state = changedState.toString();
-    }
+       changedState.setCharAt(24, state.charAt(42));
+       changedState.setCharAt(25, state.charAt(42));
+       changedState.setCharAt(26, state.charAt(44));
+       
+       changedState.setCharAt(33, state.charAt(15));
+       changedState.setCharAt(34, state.charAt(16));
+       changedState.setCharAt(35, state.charAt(17));
+      
+       changedState.setCharAt(42, state.charAt(33));
+       changedState.setCharAt(43, state.charAt(34));
+       changedState.setCharAt(44, state.charAt(35));
+       
+       changedState.setCharAt(45, state.charAt(51));
+       changedState.setCharAt(46, state.charAt(48));
+       changedState.setCharAt(47, state.charAt(45));
+       changedState.setCharAt(48, state.charAt(52));
+       changedState.setCharAt(49, state.charAt(49));
+       changedState.setCharAt(50, state.charAt(46));
+       changedState.setCharAt(51, state.charAt(53));
+       changedState.setCharAt(52, state.charAt(50));
+       changedState.setCharAt(53, state.charAt(47));
+       // Replace the previous state
+       state = changedState.toString();
+   }
+   
+   public void BackLeft(){
+       StringBuilder changedState = new StringBuilder(state);
+      
+     
+       changedState.setCharAt(0, state.charAt(27));
+       changedState.setCharAt(1, state.charAt(28));
+       changedState.setCharAt(2, state.charAt(29));
+       
+       changedState.setCharAt(18, state.charAt(0));
+       changedState.setCharAt(21, state.charAt(1));
+       changedState.setCharAt(24, state.charAt(2));
+       
+       changedState.setCharAt(29, state.charAt(47));
+       changedState.setCharAt(32, state.charAt(46));
+       changedState.setCharAt(35, state.charAt(45));
+      
+       changedState.setCharAt(36, state.charAt(42));
+       changedState.setCharAt(37, state.charAt(39));
+       changedState.setCharAt(38, state.charAt(36));
+       changedState.setCharAt(39, state.charAt(43));
+       changedState.setCharAt(40, state.charAt(40));
+       changedState.setCharAt(41, state.charAt(37));
+       changedState.setCharAt(42, state.charAt(44));
+       changedState.setCharAt(43, state.charAt(42));
+       changedState.setCharAt(44, state.charAt(38));
+       
+       changedState.setCharAt(51, state.charAt(18));
+       changedState.setCharAt(52, state.charAt(21));
+       changedState.setCharAt(53, state.charAt(24));
+       // Replace the previous state
+       state = changedState.toString();
+   }
+   
+   public void BackRight(){
+       StringBuilder changedState = new StringBuilder(state);
+      
+     
+       changedState.setCharAt(0, state.charAt(18));
+       changedState.setCharAt(1, state.charAt(21));
+       changedState.setCharAt(2, state.charAt(24));
+       
+       changedState.setCharAt(18, state.charAt(51));
+       changedState.setCharAt(21, state.charAt(52));
+       changedState.setCharAt(24, state.charAt(53));
+       
+       changedState.setCharAt(29, state.charAt(0));
+       changedState.setCharAt(32, state.charAt(1));
+       changedState.setCharAt(35, state.charAt(2));
+      
+       changedState.setCharAt(36, state.charAt(38));
+       changedState.setCharAt(37, state.charAt(41));
+       changedState.setCharAt(38, state.charAt(44));
+       changedState.setCharAt(39, state.charAt(37));
+       changedState.setCharAt(40, state.charAt(40));
+       changedState.setCharAt(41, state.charAt(43));
+       changedState.setCharAt(42, state.charAt(36));
+       changedState.setCharAt(43, state.charAt(39));
+       changedState.setCharAt(44, state.charAt(42));
+       
+       changedState.setCharAt(51, state.charAt(29));
+       changedState.setCharAt(52, state.charAt(32));
+       changedState.setCharAt(53, state.charAt(35));
+       // Replace the previous state
+       state = changedState.toString();
+   }
+
     @Override
     public String toString(){
         StringBuilder representation = new StringBuilder();
