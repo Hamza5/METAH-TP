@@ -29,6 +29,10 @@ public class RubiksCubeSolver {
                 System.out.println("Left");
                 cube.left();
                 System.out.println(cube);
+                cube.BackLeft();
+                System.out.println(cube);
+                cube.BackRight();
+                System.out.println(cube);
                 System.out.println("Left inverted");
                 cube.left_inverted();
                 System.out.println(cube);
