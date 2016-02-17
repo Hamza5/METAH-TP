@@ -129,6 +129,37 @@ public class RubiksCube {
         state = changedState.toString();
     }
 
+    public void right(){
+        StringBuilder changedState = new StringBuilder(state);
+        // The top face
+        changedState.setCharAt(2, state.charAt(11));
+        changedState.setCharAt(5, state.charAt(14));
+        changedState.setCharAt(8, state.charAt(17));
+        // The front face
+        changedState.setCharAt(17, state.charAt(49));
+        changedState.setCharAt(14, state.charAt(52));
+        changedState.setCharAt(11, state.charAt(55));
+        // The right face
+        changedState.setCharAt(33, state.charAt(27));
+        changedState.setCharAt(30, state.charAt(28));
+        changedState.setCharAt(27, state.charAt(29));
+        changedState.setCharAt(34, state.charAt(30));
+        changedState.setCharAt(28, state.charAt(32));
+        changedState.setCharAt(35, state.charAt(33));
+        changedState.setCharAt(32, state.charAt(34));
+        changedState.setCharAt(20, state.charAt(35));
+        // The back face
+        changedState.setCharAt(44, state.charAt(0));
+        changedState.setCharAt(41, state.charAt(3));
+        changedState.setCharAt(38, state.charAt(6));
+        // The bottom face
+        changedState.setCharAt(47, state.charAt(38));
+        changedState.setCharAt(50, state.charAt(41));
+        changedState.setCharAt(53, state.charAt(44));
+        // Replace the previous state
+        state = changedState.toString();
+    }
+
     @Override
     public String toString(){
         StringBuilder representation = new StringBuilder();
