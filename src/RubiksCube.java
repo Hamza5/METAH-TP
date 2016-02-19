@@ -3,6 +3,28 @@ public class RubiksCube {
     private String state;
     public RubiksCube(String initialState){
         state = initialState;
+        char top = getTopFace().charAt(4);
+        if (top != 'w'){
+            switch (top){
+                case 'b' :
+                    String frontFace = getFrontFace();
+                    setFrontFace(getTopFace());
+                    setTopFace(getBackFace());
+                    setBackFace(getBottomFace());
+                    setBottomFace(frontFace);
+                    String leftFace = getLeftFace();
+                    leftFace = new StringBuilder(leftFace).replace(0,3,new String(new char[]{leftFace.charAt(6), leftFace.charAt(3), leftFace.charAt(0)}))
+                                    .replace(3, 6, new String(new char[]{leftFace.charAt(7), leftFace.charAt(4), leftFace.charAt(1)}))
+                                    .replace(6, 9, new String(new char[]{leftFace.charAt(8), leftFace.charAt(5), leftFace.charAt(2)})).toString();
+                    setLeftFace(leftFace);
+                    String rightFace = getRightFace();
+                    rightFace = new StringBuilder(rightFace).replace(0,3,new String(new char[]{rightFace.charAt(6), rightFace.charAt(3), rightFace.charAt(0)}))
+                            .replace(3, 6, new String(new char[]{rightFace.charAt(7), rightFace.charAt(4), rightFace.charAt(1)}))
+                            .replace(6, 9, new String(new char[]{rightFace.charAt(8), rightFace.charAt(5), rightFace.charAt(2)})).toString();
+                    setRightFace(rightFace);
+                    break;
+            }
+        }
     }
 
     public void up(){
@@ -356,6 +378,30 @@ public class RubiksCube {
 
     public String getBottomFace(){
         return state.substring(45, 54);
+    }
+
+    private void setTopFace(String face){
+        state = new StringBuilder(state).replace(0, 9, face).toString();
+    }
+
+    private void setFrontFace(String face){
+        state = new StringBuilder(state).replace(9, 18, face).toString();
+    }
+
+    private void setLeftFace(String face){
+        state = new StringBuilder(state).replace(18,27,face).toString();
+    }
+
+    private void setRightFace(String face){
+        state = new StringBuilder(state).replace(27,36,face).toString();
+    }
+
+    private void setBackFace(String face){
+        state = new StringBuilder(state).replace(36,45,face).toString();
+    }
+
+    private void setBottomFace(String face){
+        state = new StringBuilder(state).replace(45,54,face).toString();
     }
 
 }
