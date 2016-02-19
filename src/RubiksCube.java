@@ -12,16 +12,17 @@ public class RubiksCube {
                     setTopFace(getBackFace());
                     setBackFace(getBottomFace());
                     setBottomFace(frontFace);
-                    String leftFace = getLeftFace();
-                    leftFace = new StringBuilder(leftFace).replace(0,3,new String(new char[]{leftFace.charAt(6), leftFace.charAt(3), leftFace.charAt(0)}))
-                                    .replace(3, 6, new String(new char[]{leftFace.charAt(7), leftFace.charAt(4), leftFace.charAt(1)}))
-                                    .replace(6, 9, new String(new char[]{leftFace.charAt(8), leftFace.charAt(5), leftFace.charAt(2)})).toString();
-                    setLeftFace(leftFace);
-                    String rightFace = getRightFace();
-                    rightFace = new StringBuilder(rightFace).replace(0,3,new String(new char[]{rightFace.charAt(6), rightFace.charAt(3), rightFace.charAt(0)}))
-                            .replace(3, 6, new String(new char[]{rightFace.charAt(7), rightFace.charAt(4), rightFace.charAt(1)}))
-                            .replace(6, 9, new String(new char[]{rightFace.charAt(8), rightFace.charAt(5), rightFace.charAt(2)})).toString();
-                    setRightFace(rightFace);
+                    setLeftFace(getRotatedFace(getLeftFace()));
+                    setRightFace(getRotatedFaceInverted(getRightFace()));
+                    break;
+                case 'r' :
+                    String topFace = getTopFace();
+                    setTopFace(getRightFace());
+                    setRightFace(getBottomFace());
+                    setBottomFace(getLeftFace());
+                    setLeftFace(topFace);
+                    setFrontFace(getRotatedFaceInverted(getFrontFace()));
+                    setBackFace(getRotatedFace(getBackFace()));
                     break;
             }
         }
@@ -402,6 +403,18 @@ public class RubiksCube {
 
     private void setBottomFace(String face){
         state = new StringBuilder(state).replace(45,54,face).toString();
+    }
+
+    private String getRotatedFace(String face){
+        return new StringBuilder(face).replace(0,3,new String(new char[]{face.charAt(6), face.charAt(3), face.charAt(0)}))
+                .replace(3, 6, new String(new char[]{face.charAt(7), face.charAt(4), face.charAt(1)}))
+                .replace(6, 9, new String(new char[]{face.charAt(8), face.charAt(5), face.charAt(2)})).toString();
+    }
+
+    private String getRotatedFaceInverted(String face){
+        return new StringBuilder(face).replace(0,3,new String(new char[]{face.charAt(2), face.charAt(5), face.charAt(8)}))
+                .replace(3, 6, new String(new char[]{face.charAt(1), face.charAt(4), face.charAt(7)}))
+                .replace(6, 9, new String(new char[]{face.charAt(0), face.charAt(3), face.charAt(6)})).toString();
     }
 
 }
