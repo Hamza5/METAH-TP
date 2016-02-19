@@ -4,7 +4,7 @@ public class RubiksCube {
     public RubiksCube(String initialState){
         state = initialState;
         char top = getTopFace().charAt(4);
-        if (top != 'w'){
+        if (top != 'w'){ // If the top face of the cube isn't the white face, then we have to rotate it
             switch (top){
                 case 'b' :
                     String frontFace = getFrontFace();
@@ -23,6 +23,15 @@ public class RubiksCube {
                     setLeftFace(topFace);
                     setFrontFace(getRotatedFaceInverted(getFrontFace()));
                     setBackFace(getRotatedFace(getBackFace()));
+                    break;
+                case 'o' :
+                    topFace = getTopFace();
+                    setTopFace(getLeftFace());
+                    setLeftFace(getBottomFace());
+                    setBottomFace(getRightFace());
+                    setRightFace(topFace);
+                    setFrontFace(getRotatedFace(getFrontFace()));
+                    setBackFace(getRotatedFaceInverted(getBackFace()));
                     break;
             }
         }
