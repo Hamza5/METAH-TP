@@ -33,6 +33,15 @@ public class RubiksCube {
                     setFrontFace(getRotatedFace(getFrontFace()));
                     setBackFace(getRotatedFaceInverted(getBackFace()));
                     break;
+                case 'g' :
+                    topFace = getTopFace();
+                    setTopFace(getFrontFace());
+                    setFrontFace(getBottomFace());
+                    setBottomFace(getBackFace());
+                    setBackFace(topFace);
+                    setLeftFace(getRotatedFaceInverted(getLeftFace()));
+                    setRightFace(getRotatedFace(getRightFace()));
+                    break;
             }
         }
     }
