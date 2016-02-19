@@ -42,6 +42,16 @@ public class RubiksCube {
                     setLeftFace(getRotatedFaceInverted(getLeftFace()));
                     setRightFace(getRotatedFace(getRightFace()));
                     break;
+                case 'y' :
+                    topFace = getTopFace();
+                    setTopFace(getBottomFace());
+                    setBottomFace(topFace);
+                    String leftFace = getLeftFace();
+                    setLeftFace(getRotatedFace(getRotatedFace(getRightFace())));
+                    setRightFace(getRotatedFace(getRotatedFace(leftFace)));
+                    setFrontFace(getRotatedFace(getRotatedFace(getFrontFace())));
+                    setBackFace(getRotatedFace(getRotatedFace(getBackFace())));
+                    break;
             }
         }
     }
