@@ -9,7 +9,8 @@ public class RubiksCubeSolver {
         StringBuilder representation = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null){
-            if (line.trim().startsWith("#")) continue;
+            line = line.trim();
+            if (line.isEmpty() || line.startsWith("#")) continue;
             representation.append(line);
         }
         return representation.toString();

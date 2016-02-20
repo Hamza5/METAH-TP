@@ -3,55 +3,77 @@ public class RubiksCube {
     private String state;
     public RubiksCube(String initialState){
         state = initialState;
-        char top = getTopFace().charAt(4);
-        if (top != 'w'){ // If the top face of the cube isn't the white face, then we have to rotate it
-            switch (top){
-                case 'b' :
-                    String frontFace = getFrontFace();
-                    setFrontFace(getTopFace());
-                    setTopFace(getBackFace());
-                    setBackFace(getBottomFace());
-                    setBottomFace(frontFace);
-                    setLeftFace(getRotatedFace(getLeftFace()));
-                    setRightFace(getRotatedFaceInverted(getRightFace()));
-                    break;
-                case 'r' :
-                    String topFace = getTopFace();
-                    setTopFace(getRightFace());
-                    setRightFace(getBottomFace());
-                    setBottomFace(getLeftFace());
-                    setLeftFace(topFace);
-                    setFrontFace(getRotatedFaceInverted(getFrontFace()));
-                    setBackFace(getRotatedFace(getBackFace()));
-                    break;
-                case 'o' :
-                    topFace = getTopFace();
-                    setTopFace(getLeftFace());
-                    setLeftFace(getBottomFace());
-                    setBottomFace(getRightFace());
-                    setRightFace(topFace);
-                    setFrontFace(getRotatedFace(getFrontFace()));
-                    setBackFace(getRotatedFaceInverted(getBackFace()));
-                    break;
-                case 'g' :
-                    topFace = getTopFace();
-                    setTopFace(getFrontFace());
-                    setFrontFace(getBottomFace());
-                    setBottomFace(getBackFace());
-                    setBackFace(topFace);
-                    setLeftFace(getRotatedFaceInverted(getLeftFace()));
-                    setRightFace(getRotatedFace(getRightFace()));
-                    break;
-                case 'y' :
-                    topFace = getTopFace();
-                    setTopFace(getBottomFace());
-                    setBottomFace(topFace);
-                    String leftFace = getLeftFace();
-                    setLeftFace(getRotatedFace(getRotatedFace(getRightFace())));
-                    setRightFace(getRotatedFace(getRotatedFace(leftFace)));
-                    setFrontFace(getRotatedFace(getRotatedFace(getFrontFace())));
-                    setBackFace(getRotatedFace(getRotatedFace(getBackFace())));
-                    break;
+        if (getTopFace().charAt(4) != 'w'){ // If the top face of the cube isn't the white face, then we have to rotate the cube
+            if (getBackFace().charAt(4) == 'w'){
+                String frontFace = getFrontFace();
+                setFrontFace(getTopFace());
+                setTopFace(getBackFace());
+                setBackFace(getBottomFace());
+                setBottomFace(frontFace);
+                setLeftFace(getRotatedFace(getLeftFace()));
+                setRightFace(getRotatedFaceInverted(getRightFace()));
+            }
+            else if (getRightFace().charAt(4) == 'w'){
+                String topFace = getTopFace();
+                setTopFace(getRightFace());
+                setRightFace(getBottomFace());
+                setBottomFace(getLeftFace());
+                setLeftFace(topFace);
+                setFrontFace(getRotatedFaceInverted(getFrontFace()));
+                setBackFace(getRotatedFace(getBackFace()));
+            } else if (getLeftFace().charAt(4) == 'w'){
+                String topFace = getTopFace();
+                setTopFace(getLeftFace());
+                setLeftFace(getBottomFace());
+                setBottomFace(getRightFace());
+                setRightFace(topFace);
+                setFrontFace(getRotatedFace(getFrontFace()));
+                setBackFace(getRotatedFaceInverted(getBackFace()));
+            } else if (getFrontFace().charAt(4) == 'w') {
+                String topFace = getTopFace();
+                setTopFace(getFrontFace());
+                setFrontFace(getBottomFace());
+                setBottomFace(getBackFace());
+                setBackFace(topFace);
+                setLeftFace(getRotatedFaceInverted(getLeftFace()));
+                setRightFace(getRotatedFace(getRightFace()));
+            } else if (getBottomFace().charAt(4) == 'w'){
+                String topFace = getTopFace();
+                setTopFace(getBottomFace());
+                setBottomFace(topFace);
+                String leftFace = getLeftFace();
+                setLeftFace(getRotatedFace(getRotatedFace(getRightFace())));
+                setRightFace(getRotatedFace(getRotatedFace(leftFace)));
+                setFrontFace(getRotatedFace(getRotatedFace(getFrontFace())));
+                setBackFace(getRotatedFace(getRotatedFace(getBackFace())));
+            }
+        }
+        if (getFrontFace().charAt(4) != 'b'){ // If the front face of the cube isn't the blue face, then we have to rotate the cube
+            if (getRightFace().charAt(4) == 'b') {
+                String frontFace = getFrontFace();
+                setFrontFace(getRightFace());
+                setRightFace(getBackFace());
+                setBackFace(getLeftFace());
+                setLeftFace(frontFace);
+                setTopFace(getRotatedFace(getTopFace()));
+                setBottomFace(getRotatedFaceInverted(getBottomFace()));
+            } else if (getLeftFace().charAt(4) == 'b'){
+                String frontFace = getFrontFace();
+                setFrontFace(getLeftFace());
+                setLeftFace(getBackFace());
+                setBackFace(getRightFace());
+                setRightFace(frontFace);
+                setTopFace(getRotatedFaceInverted(getTopFace()));
+                setBottomFace(getRotatedFace(getBottomFace()));
+            } else if (getBackFace().charAt(4) == 'b'){
+                String frontFace = getFrontFace();
+                String leftFace = getLeftFace();
+                setFrontFace(getBackFace());
+                setBackFace(frontFace);
+                setLeftFace(getRightFace());
+                setRightFace(leftFace);
+                setTopFace(getRotatedFace(getRotatedFace(getTopFace())));
+                setBottomFace(getRotatedFace(getRotatedFace(getBottomFace())));
             }
         }
     }

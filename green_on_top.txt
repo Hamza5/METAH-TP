@@ -4,21 +4,21 @@ ggg
 ggg
 ggg
 # Front
-www
-www
-www
+yyy
+yyy
+yyy
 # Left
-rrr
-rrr
-rrr
+ooo
+ooo
+ooo
 # Right
-ooo
-ooo
-ooo
+rrr
+rrr
+rrr
 # Back
-yyy
-yyy
-yyy
+www
+www
+www
 # Down
 bbb
 bbb
