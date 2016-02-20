@@ -20,15 +20,29 @@ public class RubiksCubeSolver {
             try {
                 String cube_content = readFile(args[0]);
                 RubiksCube cube = new RubiksCube(cube_content);
-                cube.up();
+
+//                System.out.println("Up");
+//                cube.up();
+//                System.out.println(cube);
+//                System.out.println("Up inverted");
+//                cube.upInverted();
+//                System.out.println(cube);
+//                System.out.println("Left");
+//                cube.left();
+//                System.out.println(cube);
+//                System.out.println("Left inverted");
+//                cube.leftInverted();
                 System.out.println(cube);
-                cube.up_inverted();
-                System.out.println(cube);
-                
-                System.out.println(cube);
-                cube.BackLeft();
-                cube.BackRight();
-                System.out.println(cube);
+//                cube.BackLeft();
+//                System.out.println(cube);
+//                cube.BackRight();
+//                System.out.println(cube);
+//                System.out.println("Right");
+//                cube.right();
+//                System.out.println(cube);
+//                System.out.println("Right inverted");
+//                cube.rightInverted();
+//                System.out.println(cube);
             } catch (IOException ex){
                 System.err.println("Impossible de lire le fichier : "+args[0]);
             }
