@@ -21,6 +21,7 @@ public class RubiksCubeSolver {
             try {
                 String cube_content = readFile(args[0]);
                 RubiksCube cube = new RubiksCube(cube_content);
+
 //                System.out.println("Up");
 //                cube.up();
 //                System.out.println(cube);
