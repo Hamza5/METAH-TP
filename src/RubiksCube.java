@@ -202,7 +202,7 @@ public class RubiksCube {
         state = changedState.toString();
     }
    
-   public void BottomInverted(){
+   public void downInverted(){
        StringBuilder changedState = new StringBuilder(state);
       
      
@@ -235,7 +235,7 @@ public class RubiksCube {
        state = changedState.toString();
    }
    
-   public void Bottom(){
+   public void down(){
        StringBuilder changedState = new StringBuilder(state);
       
      
@@ -268,7 +268,7 @@ public class RubiksCube {
        state = changedState.toString();
    }
    
-   public void BackInverted(){
+   public void backInverted(){
        StringBuilder changedState = new StringBuilder(state);
       
      
@@ -301,7 +301,7 @@ public class RubiksCube {
        state = changedState.toString();
    }
    
-   public void Back(){
+   public void back(){
        StringBuilder changedState = new StringBuilder(state);
       
      
@@ -392,6 +392,68 @@ public class RubiksCube {
         changedState.setCharAt(51, state.charAt(11));
         changedState.setCharAt(48, state.charAt(14));
         changedState.setCharAt(45, state.charAt(17));
+        // Replace the previous state
+        state = changedState.toString();
+    }
+
+    public void front(){
+        StringBuilder changedState = new StringBuilder(state);
+        // The top face
+        changedState.setCharAt(6, state.charAt(26));
+        changedState.setCharAt(7, state.charAt(23));
+        changedState.setCharAt(8, state.charAt(20));
+        // The front face
+        changedState.setCharAt(9, state.charAt(15));
+        changedState.setCharAt(10, state.charAt(12));
+        changedState.setCharAt(11, state.charAt(9));
+        changedState.setCharAt(12, state.charAt(16));
+        changedState.setCharAt(14, state.charAt(10));
+        changedState.setCharAt(15, state.charAt(17));
+        changedState.setCharAt(16, state.charAt(14));
+        changedState.setCharAt(17, state.charAt(10));
+        // The left face
+        changedState.setCharAt(20, state.charAt(53));
+        changedState.setCharAt(23, state.charAt(52));
+        changedState.setCharAt(26, state.charAt(51));
+        // The right face
+        changedState.setCharAt(27, state.charAt(6));
+        changedState.setCharAt(30, state.charAt(7));
+        changedState.setCharAt(33, state.charAt(8));
+        // The bottom face
+        changedState.setCharAt(53, state.charAt(33));
+        changedState.setCharAt(52, state.charAt(30));
+        changedState.setCharAt(51, state.charAt(27));
+        // Replace the previous state
+        state = changedState.toString();
+    }
+
+    public void frontInverted(){
+        StringBuilder changedState = new StringBuilder(state);
+        // The top face
+        changedState.setCharAt(6, state.charAt(27));
+        changedState.setCharAt(7, state.charAt(30));
+        changedState.setCharAt(8, state.charAt(33));
+        // The front face
+        changedState.setCharAt(15, state.charAt(9));
+        changedState.setCharAt(12, state.charAt(10));
+        changedState.setCharAt(9, state.charAt(11));
+        changedState.setCharAt(16, state.charAt(12));
+        changedState.setCharAt(10, state.charAt(14));
+        changedState.setCharAt(17, state.charAt(15));
+        changedState.setCharAt(14, state.charAt(16));
+        changedState.setCharAt(10, state.charAt(17));
+        // The left face
+        changedState.setCharAt(26, state.charAt(6));
+        changedState.setCharAt(23, state.charAt(7));
+        changedState.setCharAt(20, state.charAt(8));
+        // The right face
+        changedState.setCharAt(33, state.charAt(53));
+        changedState.setCharAt(30, state.charAt(52));
+        changedState.setCharAt(27, state.charAt(51));
+        // The bottom face
+        changedState.setCharAt(53, state.charAt(20));
+        changedState.setCharAt(52, state.charAt(23));
+        changedState.setCharAt(51, state.charAt(26));
         // Replace the previous state
         state = changedState.toString();
     }
