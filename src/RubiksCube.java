@@ -517,13 +517,13 @@ public class RubiksCube {
         state = new StringBuilder(state).replace(45,54,face).toString();
     }
 
-    private String getRotatedFace(String face){
+    static private String getRotatedFace(String face){
         return new StringBuilder(face).replace(0,3,new String(new char[]{face.charAt(6), face.charAt(3), face.charAt(0)}))
                 .replace(3, 6, new String(new char[]{face.charAt(7), face.charAt(4), face.charAt(1)}))
                 .replace(6, 9, new String(new char[]{face.charAt(8), face.charAt(5), face.charAt(2)})).toString();
     }
 
-    private String getRotatedFaceInverted(String face){
+    static private String getRotatedFaceInverted(String face){
         return new StringBuilder(face).replace(0,3,new String(new char[]{face.charAt(2), face.charAt(5), face.charAt(8)}))
                 .replace(3, 6, new String(new char[]{face.charAt(1), face.charAt(4), face.charAt(7)}))
                 .replace(6, 9, new String(new char[]{face.charAt(0), face.charAt(3), face.charAt(6)})).toString();
