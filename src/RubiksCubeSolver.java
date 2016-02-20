@@ -24,10 +24,10 @@ public class RubiksCubeSolver {
                 System.out.println(cube);
                 cube.up_inverted();
                 System.out.println(cube);
+                
+                System.out.println(cube);
                 cube.BackLeft();
                 cube.BackRight();
-                System.out.println(cube);
-                cube.left_inverted();
                 System.out.println(cube);
             } catch (IOException ex){
                 System.err.println("Impossible de lire le fichier : "+args[0]);
