@@ -42,11 +42,11 @@ public class RubiksCubeSolver {
 //                cube.right();
 //                System.out.println(cube);
 //                System.out.println("Right inverted");
-//                cube.rightInverted();
-//                System.out.println(cube);
-                RubiksCubeMixer mixer = new RubiksCubeMixer(cube);
-                mixer.mixCube(10);
-                System.out.println(mixer.getCube());
+                cube.downInverted();
+                System.out.println(cube);
+               // RubiksCubeMixer mixer = new RubiksCubeMixer(cube);
+                //mixer.mixCube(10);
+               // System.out.println(mixer.getCube());
             } catch (IOException ex){
                 System.err.println("Impossible de lire le fichier : "+args[0]);
             }

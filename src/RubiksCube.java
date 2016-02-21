@@ -268,7 +268,7 @@ public class RubiksCube {
        state = changedState.toString();
    }
    
-   public void backInverted(){
+   public void back(){
        StringBuilder changedState = new StringBuilder(state);
       
      
@@ -276,13 +276,17 @@ public class RubiksCube {
        changedState.setCharAt(1, state.charAt(32));
        changedState.setCharAt(2, state.charAt(35));
        
-       changedState.setCharAt(18, state.charAt(2));
-       changedState.setCharAt(21, state.charAt(1));
-       changedState.setCharAt(24, state.charAt(0));
+       changedState.setCharAt(45, state.charAt(24));
+       changedState.setCharAt(46, state.charAt(21));
+       changedState.setCharAt(47, state.charAt(18));
        
-       changedState.setCharAt(29, state.charAt(53));
-       changedState.setCharAt(32, state.charAt(52));
-       changedState.setCharAt(35, state.charAt(51));
+       changedState.setCharAt(24, state.charAt(0));
+       changedState.setCharAt(21, state.charAt(1));
+       changedState.setCharAt(18, state.charAt(2));
+       
+       changedState.setCharAt(29, state.charAt(45));
+       changedState.setCharAt(32, state.charAt(46));
+       changedState.setCharAt(35, state.charAt(47));
       
        changedState.setCharAt(36, state.charAt(42));
        changedState.setCharAt(37, state.charAt(39));
@@ -294,14 +298,12 @@ public class RubiksCube {
        changedState.setCharAt(43, state.charAt(41));
        changedState.setCharAt(44, state.charAt(38));
        
-       changedState.setCharAt(51, state.charAt(18));
-       changedState.setCharAt(52, state.charAt(21));
-       changedState.setCharAt(53, state.charAt(24));
+
        // Replace the previous state
        state = changedState.toString();
    }
    
-   public void back(){
+   public void backInverted(){
        StringBuilder changedState = new StringBuilder(state);
       
      
@@ -309,9 +311,9 @@ public class RubiksCube {
        changedState.setCharAt(1, state.charAt(21));
        changedState.setCharAt(2, state.charAt(18));
        
-       changedState.setCharAt(18, state.charAt(51));
-       changedState.setCharAt(21, state.charAt(52));
-       changedState.setCharAt(24, state.charAt(53));
+       changedState.setCharAt(18, state.charAt(45));
+       changedState.setCharAt(21, state.charAt(46));
+       changedState.setCharAt(24, state.charAt(47));
        
        changedState.setCharAt(29, state.charAt(0));
        changedState.setCharAt(32, state.charAt(1));
@@ -327,9 +329,9 @@ public class RubiksCube {
        changedState.setCharAt(43, state.charAt(39));
        changedState.setCharAt(44, state.charAt(42));
        
-       changedState.setCharAt(51, state.charAt(35));
-       changedState.setCharAt(52, state.charAt(32));
-       changedState.setCharAt(53, state.charAt(29));
+       changedState.setCharAt(45, state.charAt(29));
+       changedState.setCharAt(46, state.charAt(32));
+       changedState.setCharAt(47, state.charAt(35));
        // Replace the previous state
        state = changedState.toString();
    }
