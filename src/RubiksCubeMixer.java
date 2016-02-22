@@ -11,18 +11,15 @@ class RubiksCubeMixer {
         methodNames = new String[]{"up","upInverted","left","leftInverted","right","rightInverted","back","backInverted","down","downInverted"};
     }
 
-    RubiksCube mixCube(int rotations){
+    void mixCube(int rotations){
         Random randomGenerator = new Random();
         for (int i=0; i<rotations; i++){
             try {
-                int methodNumber = randomGenerator.nextInt(rotations);
-                System.out.println(methodNames[methodNumber]);
-                cube.getClass().getMethod(methodNames[methodNumber]).invoke(cube);
+                cube.getClass().getMethod(methodNames[randomGenerator.nextInt(rotations)]).invoke(cube);
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException  e) { // Should never happen
                 e.printStackTrace();
             }
         }
-        return cube;
     }
 
     RubiksCube getCube(){
