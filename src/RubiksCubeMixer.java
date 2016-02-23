@@ -1,3 +1,5 @@
+import algorithms.RubiksCube;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 

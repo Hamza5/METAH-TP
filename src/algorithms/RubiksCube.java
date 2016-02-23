@@ -1,6 +1,10 @@
+package algorithms;
+
 public class RubiksCube {
 
+    private static final String solvedState = "wwwwwwwwwbbbbbbbbbrrrrrrrrrooooooooogggggggggyyyyyyyyy";
     private String state;
+
     public RubiksCube(String initialState){
         state = initialState;
         if (getTopFace().charAt(4) != 'w'){ // If the top face of the cube isn't the white face, then we have to rotate the cube
@@ -458,6 +462,10 @@ public class RubiksCube {
         changedState.setCharAt(51, state.charAt(26));
         // Replace the previous state
         state = changedState.toString();
+    }
+
+    public boolean isSolved(){
+        return state.equals(solvedState);
     }
 
     @Override
