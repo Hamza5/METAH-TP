@@ -468,6 +468,15 @@ public class RubiksCube {
         return state.equals(solvedState);
     }
 
+    public String getState(){
+        return state;
+    }
+
+    @Override
+    public boolean equals(Object otherCube) {
+        return otherCube instanceof RubiksCube && ((RubiksCube) otherCube).getState().equals(state);
+    }
+
     @Override
     public String toString(){
         StringBuilder representation = new StringBuilder();

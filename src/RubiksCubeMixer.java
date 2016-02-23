@@ -3,17 +3,16 @@ import algorithms.RubiksCube;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
-class RubiksCubeMixer {
+public class RubiksCubeMixer {
 
     private final RubiksCube cube;
-    private final String[] methodNames;
+    private static final String[] methodNames = new String[]{"up","upInverted","left","leftInverted","right","rightInverted","back","backInverted","down","downInverted"};
 
-    RubiksCubeMixer(RubiksCube originalCube){
+    public RubiksCubeMixer(RubiksCube originalCube){
         cube = originalCube;
-        methodNames = new String[]{"up","upInverted","left","leftInverted","right","rightInverted","back","backInverted","down","downInverted"};
     }
 
-    void mixCube(int rotations){
+    public void mixCube(int rotations){
         Random randomGenerator = new Random();
         for (int i=0; i<rotations; i++){
             try {
@@ -24,7 +23,11 @@ class RubiksCubeMixer {
         }
     }
 
-    RubiksCube getCube(){
+    public static String[] getMethodNames(){
+        return methodNames;
+    }
+
+    public RubiksCube getCube(){
         return cube;
     }
 }
