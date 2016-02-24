@@ -2,7 +2,7 @@ package algorithms;
 
 abstract class SolvingAlgorithm extends Thread {
 
-    private final RubiksCube initialCube;
+    protected final RubiksCube initialCube;
     private float startTime;
     private float endTime;
 
