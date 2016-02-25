@@ -416,7 +416,7 @@ public class RubiksCube {
         changedState.setCharAt(14, state.charAt(10));
         changedState.setCharAt(15, state.charAt(17));
         changedState.setCharAt(16, state.charAt(14));
-        changedState.setCharAt(17, state.charAt(10));
+        changedState.setCharAt(17, state.charAt(11));
         // The left face
         changedState.setCharAt(20, state.charAt(53));
         changedState.setCharAt(23, state.charAt(52));
@@ -447,7 +447,7 @@ public class RubiksCube {
         changedState.setCharAt(10, state.charAt(14));
         changedState.setCharAt(17, state.charAt(15));
         changedState.setCharAt(14, state.charAt(16));
-        changedState.setCharAt(10, state.charAt(17));
+        changedState.setCharAt(11, state.charAt(17));
         // The left face
         changedState.setCharAt(26, state.charAt(6));
         changedState.setCharAt(23, state.charAt(7));
