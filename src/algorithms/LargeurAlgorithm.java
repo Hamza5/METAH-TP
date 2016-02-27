@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class LargeurAlgorithm extends SolvingAlgorithm {
 
 	static final String[] methodNames = new String[]{"up","upInverted","left","leftInverted","right","rightInverted","back","backInverted","down","downInverted","front","frontInverted"};
-	 String initialCubeTester=initialCube.getState();
+	 String initialCubeTester=new String(initialCube.getState());
 	 
 	 RubiksCube cube=initialCube;
 	 public void rotateCube(int rotation){
@@ -16,9 +16,7 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
              e.printStackTrace();
          }
  }
-   public  void ResetCube(RubiksCube originalCube){
-	   cube.setState(initialCubeTester);
-   }
+  
 	public LargeurAlgorithm(RubiksCube cube) {
 		super(cube);
 	}
@@ -61,12 +59,12 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
     	for(int i=0;i<nbrRotation;i++){
     		rotateCube(rotationTable[i]-1);
     		}
+    	if(cube.equals("wwwwwwwwwbbbbbbbbbrrrrrrrrrooooooooogggggggggyyyyyyyyy")){ System.out.println("Before \n"+cube.getState());}
     	if(cube.isSolved()){
-			return true;
+    		return true;
 			}else{
-			cube.setState(initialCubeTester);
-	    	ResetCube(initialCube);
-			return false;}
+				cube.setState(initialCubeTester);
+				return false;}
 		
     }
 	protected void doOperation() {
@@ -76,12 +74,13 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
 		}
 		boolean Trouvé= false;
 		int currentState = 0;
-		while(!BigFile.isEmpty() && !Trouvé ){
+		int nbr=0;
+		while(!BigFile.isEmpty() && !Trouvé   ){
 			currentState=BigFile.removeFirst();
 			if(!exists(currentState)){
 				if(ResulteState(currentState)){
 					Trouvé=true;
-				}else{
+				}else{	
 					int TobeAdd;
 					for(int i=1;i <= 12;i++ ){
 						TobeAdd=currentState<<4 ;
