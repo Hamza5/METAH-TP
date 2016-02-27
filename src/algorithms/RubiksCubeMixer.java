@@ -15,11 +15,9 @@ public class RubiksCubeMixer {
     public void mixCube(int rotations){
         Random randomGenerator = new Random();
         for(int i=0; i<rotations; i++){
-        	try {
-        		int methode=randomGenerator.nextInt(methodNames.length);
-        		System.out.println(methodNames[methode]);
-        		cube.getClass().getMethod(methodNames[methode]).invoke(cube);
-        		System.out.println(cube);
+
+        	try {            	
+        		cube.getClass().getMethod(methodNames[randomGenerator.nextInt(methodNames.length)]).invoke(cube);
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException  e) { // Should never happen
                 e.printStackTrace();
             }

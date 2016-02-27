@@ -1,8 +1,11 @@
 package algorithms;
 
+import java.util.ArrayList;
+
 abstract class SolvingAlgorithm extends Thread {
 
     protected final RubiksCube initialCube;
+    protected ArrayList<String> steps;
     private float startTime;
     private float endTime;
 
@@ -29,6 +32,10 @@ abstract class SolvingAlgorithm extends Thread {
 
     public float getExecutionTime(){
         return endTime - startTime;
+    }
+
+    public ArrayList getSteps(){
+        return steps;
     }
 
 }
