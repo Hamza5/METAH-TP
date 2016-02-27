@@ -1,22 +1,27 @@
 package algorithms;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class RubiksCubeMixer {
 
     private final RubiksCube cube;
     static final String[] methodNames = new String[]{"up","upInverted","left","leftInverted","right","rightInverted","back","backInverted","down","downInverted","front","frontInverted"};
+    private ArrayList<String> actions;
 
     public RubiksCubeMixer(RubiksCube originalCube){
         cube = originalCube;
+        actions = new ArrayList<>();
     }
 
     public void mixCube(int rotations){
         Random randomGenerator = new Random();
         for(int i=0; i<rotations; i++){
-        	try {            	
-        		cube.getClass().getMethod(methodNames[randomGenerator.nextInt(methodNames.length)]).invoke(cube);
+        	try {
+                String methodName = methodNames[randomGenerator.nextInt(methodNames.length)];
+                actions.add(methodName);
+        		cube.getClass().getMethod(methodName).invoke(cube);
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException  e) { // Should never happen
                 e.printStackTrace();
             }
@@ -30,13 +35,14 @@ public class RubiksCubeMixer {
               e.printStackTrace();
           }
       
-  }
+    }
+
+    public ArrayList<String> getActions() {
+        return actions;
+    }
 
     public static String[] getMethodNames(){
         return methodNames;
     }
 
-    public RubiksCube getCube(){
-        return cube;
-    }
 }
