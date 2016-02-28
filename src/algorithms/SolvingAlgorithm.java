@@ -11,6 +11,7 @@ abstract class SolvingAlgorithm extends Thread {
 
     SolvingAlgorithm(RubiksCube cube){
         initialCube = cube;
+        steps = new ArrayList<>();
     }
 
     @Override
@@ -34,7 +35,7 @@ abstract class SolvingAlgorithm extends Thread {
         return endTime - startTime;
     }
 
-    public ArrayList getSteps(){
+    public ArrayList<String> getSteps(){
         return steps;
     }
 

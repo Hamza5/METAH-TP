@@ -27,13 +27,13 @@ public class RubiksCubeSolver {
                 RubiksCube cube = new RubiksCube(cube_content);
                 RubiksCubeMixer mixer = new RubiksCubeMixer(cube);
                 System.out.println(cube);
-                mixer.mixCube(5);
+                mixer.mixCube(8);
                 System.out.println(mixer.getActions());
                 System.out.println(cube);
-                DepthFirstSolvingAlgorithm depthFirst = new DepthFirstSolvingAlgorithm(cube, 4);
+                DepthFirstSolvingAlgorithm depthFirst = new DepthFirstSolvingAlgorithm(cube, 8);
                 depthFirst.start();
                 depthFirst.join();
-                if (depthFirst.getSteps() != null){
+                if (!depthFirst.getSteps().isEmpty()){
                     System.out.println("Solution trouvée :");
                     System.out.println(depthFirst.getSteps());
                 } else System.out.println("Aucune solution trouvée !");
