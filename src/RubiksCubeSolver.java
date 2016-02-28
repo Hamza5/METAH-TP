@@ -1,4 +1,6 @@
+import algorithms.DepthFirstSolvingAlgorithm;
 import algorithms.RubiksCube;
+import algorithms.RubiksCubeMixer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,34 +25,22 @@ public class RubiksCubeSolver {
             try {
                 String cube_content = readFile(args[0]);
                 RubiksCube cube = new RubiksCube(cube_content);
-
-//                System.out.println("Up");
-//                cube.up();
-//                System.out.println(cube);
-//                System.out.println("Up inverted");
-//                cube.upInverted();
-//                System.out.println(cube);
-//                System.out.println("Left");
-//                cube.left();
-//                System.out.println(cube);
-//                System.out.println("Left inverted");
-//                cube.leftInverted();
+                RubiksCubeMixer mixer = new RubiksCubeMixer(cube);
                 System.out.println(cube);
-//                cube.BackLeft();
-//                System.out.println(cube);
-//                cube.BackRight();
-//                System.out.println(cube);
-//                System.out.println("Right");
-//                cube.right();
-//                System.out.println(cube);
-//                System.out.println("Right inverted");
-                cube.downInverted();
+                mixer.mixCube(5);
+                System.out.println(mixer.getActions());
                 System.out.println(cube);
-               // RubiksCubeMixer mixer = new RubiksCubeMixer(cube);
-                //mixer.mixCube(10);
-               // System.out.println(mixer.getCube());
+                DepthFirstSolvingAlgorithm depthFirst = new DepthFirstSolvingAlgorithm(cube, 4);
+                depthFirst.start();
+                depthFirst.join();
+                if (depthFirst.getSteps() != null){
+                    System.out.println("Solution trouvée :");
+                    System.out.println(depthFirst.getSteps());
+                } else System.out.println("Aucune solution trouvée !");
             } catch (IOException ex){
-                System.err.println("Impossible de lire le fichier : "+args[0]);
+                System.err.println("Impossible de lire le fichier : " + args[0]);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         } else System.err.println("Usage : RubiksCubeSolver <fichier_cube>");
     }
