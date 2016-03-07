@@ -26,13 +26,14 @@ public class RubiksCubeSolver {
                 String cube_content = readFile(args[0]);
                 RubiksCube cube = new RubiksCube(cube_content);
                 RubiksCubeMixer mixer = new RubiksCubeMixer(cube);
-                System.out.println(cube);
+//                System.out.println(cube);
                 mixer.mixCube(8);
-                System.out.println(mixer.getActions());
-                System.out.println(cube);
+//                System.out.println(mixer.getActions());
+//                System.out.println(cube);
                 DepthFirstSolvingAlgorithm depthFirst = new DepthFirstSolvingAlgorithm(cube, 8);
                 depthFirst.start();
                 depthFirst.join();
+                System.out.println(String.format("Temps = %.3f | Nombre d'états visités : %d | Nombre d'états abondonnés : %d", depthFirst.getExecutionTime(), depthFirst.getTotalStatesCount(), depthFirst.getAbandonedStatesCount()));
                 if (!depthFirst.getSteps().isEmpty()){
                     System.out.println("Solution trouvée :");
                     System.out.println(depthFirst.getSteps());

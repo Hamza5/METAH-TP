@@ -37,11 +37,15 @@ public class DepthFirstSolvingAlgorithm extends SolvingAlgorithm {
                     pastActions.add(action);
                     RubiksCube newCube = new RubiksCube(currentState);
                     RubiksCube.class.getMethod(action).invoke(newCube);
+                    totalStatesCount++;
                     if (!visited.contains(newCube.getState())){
                         found = solveByDepthFirst(newCube, pastActions);
                     }
                     visited.remove(currentState);
-                    if (!found) pastActions.remove(pastActions.size()-1);
+                    if (!found){
+                        pastActions.remove(pastActions.size()-1);
+                        abandonedStatesCount++;
+                    }
                 } catch (IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
                     e.printStackTrace(); // Should never happen
                 }

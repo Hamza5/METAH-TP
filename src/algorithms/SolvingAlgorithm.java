@@ -6,12 +6,16 @@ abstract class SolvingAlgorithm extends Thread {
 
     protected final RubiksCube initialCube;
     protected ArrayList<String> steps;
-    private float startTime;
-    private float endTime;
+    private long startTime;
+    private long endTime;
+    protected long totalStatesCount;
+    protected long abandonedStatesCount;
 
     SolvingAlgorithm(RubiksCube cube){
         initialCube = cube;
         steps = new ArrayList<>();
+        totalStatesCount = 0;
+        abandonedStatesCount = 0;
     }
 
     @Override
@@ -24,19 +28,26 @@ abstract class SolvingAlgorithm extends Thread {
     protected abstract void doOperation();
 
     private void doBefore(){
-        startTime = System.currentTimeMillis()/1000f;
+        startTime = System.currentTimeMillis();
     }
 
     private void doAfter(){
-        endTime = System.currentTimeMillis()/1000f;
+        endTime = System.currentTimeMillis();
     }
 
-    public float getExecutionTime(){
-        return endTime - startTime;
+    public double getExecutionTime(){
+        return (endTime - startTime)/1000.;
     }
 
     public ArrayList<String> getSteps(){
         return steps;
     }
 
+    public long getTotalStatesCount() {
+        return totalStatesCount;
+    }
+
+    public long getAbandonedStatesCount() {
+        return abandonedStatesCount;
+    }
 }
