@@ -125,6 +125,9 @@ public class RubiksCubeSolver {
                 cube = new RubiksCube(readFile(filePath));
             } catch (IOException ex) {
                 System.err.printf("Impossible de lire le fichier %s !%n", filePath);
+            } catch (IllegalArgumentException ex){
+                System.err.printf("Le fichier %s est invalide !%n", filePath);
+                input.readLine(); // Wait
             }
         }
     }
@@ -171,14 +174,15 @@ public class RubiksCubeSolver {
         return canBeUsed;
     }
 
-    private static String readFile(String path) throws IOException {
+    private static String readFile(String path) throws IOException, IllegalArgumentException {
         BufferedReader reader = new BufferedReader(new FileReader(path));
         StringBuilder representation = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
             line = line.trim();
             if (line.isEmpty() || line.startsWith("#")) continue;
-            representation.append(line);
+            if (line.matches("[wbrogy]{3}")) representation.append(line);
+            else throw new IllegalArgumentException();
         }
         return representation.toString();
     }
