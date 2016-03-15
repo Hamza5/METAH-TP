@@ -139,10 +139,11 @@ public class RubiksCubeSolver {
             rotations = Short.valueOf(input.readLine());
             RubiksCubeMixer mixer = new RubiksCubeMixer(cube);
             mixer.mixCube(Math.abs(rotations));
+            System.out.printf("Rotations appliquées : %s%n", mixer.getActions());
         } catch (NumberFormatException e){
             System.err.println("Vous devez spécifier un nombre valide !");
-            input.readLine(); // Wait
         }
+        input.readLine(); // Wait
     }
 
     private static short requestDepthLimit() throws IOException {
