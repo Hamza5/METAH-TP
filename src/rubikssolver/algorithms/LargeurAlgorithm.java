@@ -1,4 +1,7 @@
-package algorithms;
+package rubikssolver.algorithms;
+
+import rubikssolver.cube.RubiksCube;
+import rubikssolver.cube.RubiksCubeMixer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
@@ -67,7 +70,7 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
 		
     }
 	protected void doOperation() {
-		LinkedList<Integer> BigFile= new LinkedList<Integer>();
+		LinkedList<Integer> BigFile= new LinkedList<>();
 		for(int i=1;i <= 12;i++ ){
 			BigFile.add(i);
 		}

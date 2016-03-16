@@ -1,7 +1,8 @@
-import algorithms.DepthFirstSolvingAlgorithm;
-import algorithms.LargeurAlgorithm;
-import algorithms.RubiksCube;
-import algorithms.RubiksCubeMixer;
+package rubikssolver;
+
+import rubikssolver.algorithms.*;
+import rubikssolver.cube.RubiksCube;
+import rubikssolver.cube.RubiksCubeMixer;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class RubiksCubeSolver {
     private static final String solveByDepthFirstLetter = "P";
     private static final String solveByBroadFirstLetter = "L";
     private static final String quitLetter = "Q";
+    private static final String heuristicLetter = "H";
+    private static final String placedSquaresLetter = "C";
 
     static {
 
@@ -51,30 +54,28 @@ public class RubiksCubeSolver {
                         short depth = requestDepthLimit();
                         if (depth == 0) break;
                         DepthFirstSolvingAlgorithm depthFirst = new DepthFirstSolvingAlgorithm(cube, depth);
-                        depthFirst.start();
-                        System.out.println("Recherche en cours ...");
-                        try {
-                            depthFirst.join();
-                            ArrayList<String> solution = depthFirst.getSteps();
-                            System.out.printf(solution.isEmpty() ? "Aucune solution trouvée%n" : "Solution trouvé : %s%n", solution);
-                            System.out.printf("Temps d'exécution : %.3f s | Nombre d'états visités : %d | Nombre d'états abandonés : %d%n", depthFirst.getExecutionTime(), depthFirst.getTotalStatesCount(), depthFirst.getAbandonedStatesCount());
-                        } catch (InterruptedException e) { // Should not happen
-                            e.printStackTrace();
-                        }
-                        input.readLine(); // Wait
+                        startAndWaitThenShowExecutionTime(depthFirst);
                         break;
                     case solveByBroadFirstLetter :
                         LargeurAlgorithm breadthFirst  = new LargeurAlgorithm(cube);
-                        breadthFirst.start();
-                        System.out.println("Recherche en cours ...");
-                        try {
-                            breadthFirst.join();
-                            ArrayList<String> solution = breadthFirst.getSteps();
-                            System.out.printf(solution.isEmpty() ? "Aucune solution trouvée%n" : "Solution trouvé : %s%n", solution);
-                        } catch (InterruptedException e) { // Should not happen
-                            e.printStackTrace();
+                        startAndWaitThenShowExecutionTime(breadthFirst);
+                        break;
+                    case heuristicLetter :
+                        depth = requestDepthLimit();
+                        if (depth == 0) break;
+                        System.out.println("La fonction heuristique :");
+                        System.out.printf("   (%s) Nombre de carrés bien placés%n> ", placedSquaresLetter);
+                        String function = input.readLine().toUpperCase();
+                        HeuristicSolvingAlgorithm heuristicSolvingAlgorithm;
+                        switch (function){
+                            case placedSquaresLetter :
+                                heuristicSolvingAlgorithm = new PlacedSquaresHeuristicSolvingAlgorithm(cube, depth);
+                                startAndWaitThenShowExecutionTime(heuristicSolvingAlgorithm);
+                                break;
+                            default :
+                                System.err.println("Choix invalide !");
+                                input.readLine();
                         }
-                        input.readLine(); // Wait
                         break;
                 }
             } while (!choice.equals(quitLetter));
@@ -92,6 +93,7 @@ public class RubiksCubeSolver {
         acceptableChoices.add(solveByBroadFirstLetter);
         acceptableChoices.add(solveByDepthFirstLetter);
         acceptableChoices.add(quitLetter);
+        acceptableChoices.add(heuristicLetter);
         boolean valid = false;
         do {
             System.out.println("                                          o          o          |         ");
@@ -103,8 +105,9 @@ public class RubiksCubeSolver {
             if (cube != null) {
                 System.out.printf(" (%s) Afficher une représentation du cube%n", showCubeRepresentationLetter);
                 System.out.printf(" (%s) Mixer le cube%n", mixCubeLetter);
-                System.out.printf(" (%s) Résoudre le cube par l'algorithme largeur d'abord%n", solveByDepthFirstLetter);
-                System.out.printf(" (%s) Résoudre le cube par l'algorithme profondeur d'abord%n", solveByBroadFirstLetter);
+                System.out.printf(" (%s) Résoudre le cube par l'algorithme largeur d'abord%n", solveByBroadFirstLetter);
+                System.out.printf(" (%s) Résoudre le cube par l'algorithme profondeur d'abord%n", solveByDepthFirstLetter);
+                System.out.printf(" (%s) Résoudre par une algorithme avec heuristique%n", heuristicLetter);
             }
             System.out.printf(" (%s) Quitter%n", quitLetter);
             System.out.print("\n\nLettre : ");
@@ -118,7 +121,7 @@ public class RubiksCubeSolver {
     }
 
     private static void requestCubeFilePath() throws IOException {
-        System.out.println("Chemin du fichier : ");
+        System.out.printf("Chemin du fichier :%n> ");
         String filePath = input.readLine();
         if (checkFile(filePath)) {
             try {
@@ -133,7 +136,7 @@ public class RubiksCubeSolver {
     }
 
     private static void requestMixCount() throws IOException {
-        System.out.println("Nombre de rotations : ");
+        System.out.printf("Nombre de rotations :%n> ");
         short rotations;
         try {
             rotations = Short.valueOf(input.readLine());
@@ -147,7 +150,7 @@ public class RubiksCubeSolver {
     }
 
     private static short requestDepthLimit() throws IOException {
-        System.out.println("Limite de profondeur : ");
+        System.out.printf("Limite de profondeur :%n> ");
         short limit = 0;
         try {
             limit = Short.valueOf(input.readLine());
@@ -186,6 +189,20 @@ public class RubiksCubeSolver {
             else throw new IllegalArgumentException();
         }
         return representation.toString();
+    }
+
+    private static void startAndWaitThenShowExecutionTime(SolvingAlgorithm algorithm) throws IOException {
+        algorithm.start();
+        System.out.println("Recherche en cours ...");
+        try {
+            algorithm.join();
+            ArrayList<String> solution = algorithm.getSteps();
+            System.out.printf(solution.isEmpty() ? "Aucune solution trouvée%n" : "Solution trouvé : %s%n", solution);
+            System.out.printf("Temps d'exécution : %.3f s | Nombre d'états visités : %d | Nombre d'états abandonés : %d%n", algorithm.getExecutionTime(), algorithm.getTotalStatesCount(), algorithm.getAbandonedStatesCount());
+        } catch (InterruptedException e) { // Should not happen
+            e.printStackTrace();
+        }
+        input.readLine();
     }
 
 }

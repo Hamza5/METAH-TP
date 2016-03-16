@@ -1,4 +1,4 @@
-package algorithms;
+package rubikssolver.cube;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.Random;
 public class RubiksCubeMixer {
 
     private final RubiksCube cube;
-    static final String[] methodNames = new String[]{"up","upInverted","left","leftInverted","right","rightInverted","back","backInverted","down","downInverted","front","frontInverted"};
+    public static final String[] methodNames = new String[]{"up","upInverted","left","leftInverted","right","rightInverted","back","backInverted","down","downInverted","front","frontInverted"};
     private ArrayList<String> actions;
 
     public RubiksCubeMixer(RubiksCube originalCube){
@@ -28,6 +28,7 @@ public class RubiksCubeMixer {
         }
         
     }
+
     public void rotateCube(int rotation){
           try {
               cube.getClass().getMethod(methodNames[rotation]).invoke(cube);

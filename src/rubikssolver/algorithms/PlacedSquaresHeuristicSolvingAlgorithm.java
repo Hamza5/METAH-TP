@@ -1,4 +1,6 @@
-package algorithms;
+package rubikssolver.algorithms;
+
+import rubikssolver.cube.RubiksCube;
 
 public class PlacedSquaresHeuristicSolvingAlgorithm extends HeuristicSolvingAlgorithm {
 
