@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class DepthFirstSolvingAlgorithm extends SolvingAlgorithm {
 
-    class StateAction {
+    static class StateAction {
 
         String state;
         String action;
@@ -47,7 +47,6 @@ public class DepthFirstSolvingAlgorithm extends SolvingAlgorithm {
                         try {
                             RubiksCube newCube = new RubiksCube(sa.state);
                             RubiksCube.class.getMethod(methodName).invoke(newCube);
-//                            System.out.printf("%d %s =%s> %s%n", sa.depth, sa.state, methodName, newCube.getState());
                             open.push(new StateAction(sa, newCube.getState(), methodName));
                         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
                             e.printStackTrace(); // Should never happen
@@ -66,7 +65,6 @@ public class DepthFirstSolvingAlgorithm extends SolvingAlgorithm {
             totalStatesCount = closed.size();
             abandonedStatesCount = totalStatesCount - steps.size();
         }
-
     }
 
 }
