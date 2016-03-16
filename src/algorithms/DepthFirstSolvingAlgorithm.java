@@ -1,57 +1,72 @@
 package algorithms;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Stack;
 
 public class DepthFirstSolvingAlgorithm extends SolvingAlgorithm {
 
+    class StateAction {
+
+        String state;
+        String action;
+        StateAction parent;
+        int depth;
+
+        StateAction(StateAction last ,String s, String a){
+            state = s;
+            action = a;
+            depth = last == null ? 0 : last.depth + 1;
+            parent = last;
+        }
+
+    }
+
     private int maxDepth;
-    private HashSet<String> visited;
+    private HashMap<String, Integer> closed;
+    private Stack<StateAction> open;
 
     public DepthFirstSolvingAlgorithm(RubiksCube cube, int limit){
         super(cube);
         maxDepth = limit;
-        visited = new HashSet<>();
+        open = new Stack<>();
+        closed = new HashMap<>();
     }
 
     @Override
     protected void doOperation() {
-        solveByDepthFirst(initialCube, new ArrayList<String>());
-    }
-
-    private boolean solveByDepthFirst(RubiksCube cube, ArrayList<String> pastActions){
-        if (cube.isSolved()){
-            steps = pastActions;
-            return true;
-        }
-        else if (pastActions.size() == maxDepth) return false;
-        else {
-            String[] methods = RubiksCubeMixer.getMethodNames();
-            boolean found = false;
-            for (int i=0; i<methods.length && !found; i++){
-                try {
-                    String action = methods[i];
-                    String currentState = cube.getState();
-                    visited.add(currentState);
-                    pastActions.add(action);
-                    RubiksCube newCube = new RubiksCube(currentState);
-                    RubiksCube.class.getMethod(action).invoke(newCube);
-                    totalStatesCount++;
-                    if (!visited.contains(newCube.getState())){
-                        found = solveByDepthFirst(newCube, pastActions);
+        try {
+            final String[] methodNames = RubiksCubeMixer.getMethodNames();
+            StateAction sa = new StateAction(null, initialCube.getState(), "");
+            open.push(sa);
+            while (!open.isEmpty() && !new RubiksCube(sa.state).isSolved()) {
+                sa = open.pop();
+                if ((!closed.containsKey(sa.state) || closed.get(sa.state) > sa.depth) && sa.depth <= maxDepth) {
+                    closed.put(sa.state, sa.depth);
+                    for (String methodName : methodNames) {
+                        try {
+                            RubiksCube newCube = new RubiksCube(sa.state);
+                            RubiksCube.class.getMethod(methodName).invoke(newCube);
+//                            System.out.printf("%d %s =%s> %s%n", sa.depth, sa.state, methodName, newCube.getState());
+                            open.push(new StateAction(sa, newCube.getState(), methodName));
+                        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                            e.printStackTrace(); // Should never happen
+                        }
                     }
-                    visited.remove(currentState);
-                    if (!found){
-                        pastActions.remove(pastActions.size()-1);
-                        abandonedStatesCount++;
-                    }
-                } catch (IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
-                    e.printStackTrace(); // Should never happen
                 }
             }
-            return found;
+            if (new RubiksCube(sa.state).isSolved())
+                while (sa.parent != null){
+                    steps.add(0, sa.action);
+                    sa = sa.parent;
+                }
+        } catch (OutOfMemoryError e) {
+            System.err.println("Mémoire insuffisante ! impossible de continuer.");
+        } finally {
+            totalStatesCount = closed.size();
+            abandonedStatesCount = totalStatesCount - steps.size();
         }
+
     }
 
 }
