@@ -2,7 +2,7 @@ package algorithms;
 
 import java.util.ArrayList;
 
-abstract class SolvingAlgorithm extends Thread {
+public abstract class SolvingAlgorithm extends Thread {
 
     protected final RubiksCube initialCube;
     protected ArrayList<String> steps;
@@ -50,4 +50,5 @@ abstract class SolvingAlgorithm extends Thread {
     public long getAbandonedStatesCount() {
         return abandonedStatesCount;
     }
+
 }
