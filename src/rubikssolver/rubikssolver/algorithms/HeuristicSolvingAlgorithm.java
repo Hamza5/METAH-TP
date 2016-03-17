@@ -37,7 +37,7 @@ public abstract class HeuristicSolvingAlgorithm extends SolvingAlgorithm {
                     }
                 }
                 sa = open.remove(maxIndex);
-                if ((!closed.containsKey(sa.state) || closed.get(sa.state) > sa.depth) && sa.depth <= maxDepth) {
+                if ((!closed.containsKey(sa.state) || closed.get(sa.state) > sa.depth) && sa.depth < maxDepth) {
                     closed.put(sa.state, sa.depth);
                     for (String methodName : methodNames) {
                         try {
