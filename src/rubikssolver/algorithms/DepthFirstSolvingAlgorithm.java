@@ -44,7 +44,7 @@ public class DepthFirstSolvingAlgorithm extends SolvingAlgorithm {
             open.push(sa);
             while (!open.isEmpty() && !new RubiksCube(sa.state).isSolved()) {
                 sa = open.pop();
-                if ((!closed.containsKey(sa.state) || closed.get(sa.state) > sa.depth) && sa.depth <= maxDepth) {
+                if ((!closed.containsKey(sa.state) || closed.get(sa.state) > sa.depth) && sa.depth < maxDepth) {
                     closed.put(sa.state, sa.depth);
                     for (String methodName : methodNames) {
                         try {
