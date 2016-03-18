@@ -43,6 +43,7 @@ public class DepthFirstSolvingAlgorithm extends SolvingAlgorithm {
             StateAction sa = new StateAction(null, initialCube.getState(), "");
             open.push(sa);
             while (!open.isEmpty() && !new RubiksCube(sa.state).isSolved()) {
+                if (isInterrupted()) throw new InterruptedException();
                 sa = open.pop();
                 if ((!closed.containsKey(sa.state) || closed.get(sa.state) > sa.depth) && sa.depth < maxDepth) {
                     closed.put(sa.state, sa.depth);
@@ -64,6 +65,8 @@ public class DepthFirstSolvingAlgorithm extends SolvingAlgorithm {
                 }
         } catch (OutOfMemoryError e) {
             System.err.println("Mémoire insuffisante ! impossible de continuer.");
+        } catch (InterruptedException e) {
+            System.out.println("Recherche interrompue !");
         } finally {
             totalStatesCount = closed.size();
             abandonedStatesCount = totalStatesCount - steps.size();

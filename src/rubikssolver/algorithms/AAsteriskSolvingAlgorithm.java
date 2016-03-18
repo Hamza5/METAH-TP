@@ -27,6 +27,7 @@ public abstract class AAsteriskSolvingAlgorithm extends SolvingAlgorithm {
             DepthFirstSolvingAlgorithm.StateAction sa = new DepthFirstSolvingAlgorithm.StateAction(null, initialCube.getState(), "");
             open.add(sa);
             while (!open.isEmpty() && !new RubiksCube(sa.state).isSolved()) {
+                if (isInterrupted()) throw new InterruptedException();
                 int min = heuristic(new RubiksCube(open.get(0).state));
                 int minIndex = 0;
                 for (int i = 1; i < open.size(); i++) {
@@ -58,6 +59,8 @@ public abstract class AAsteriskSolvingAlgorithm extends SolvingAlgorithm {
                 }
         } catch (OutOfMemoryError e) {
             System.err.println("Mémoire insuffisante ! impossible de continuer.");
+        } catch (InterruptedException e) {
+            System.out.println("Recherche interrompue !");
         } finally {
             totalStatesCount = closed.size();
             abandonedStatesCount = totalStatesCount - steps.size();

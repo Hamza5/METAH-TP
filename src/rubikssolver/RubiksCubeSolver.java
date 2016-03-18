@@ -1,6 +1,9 @@
 package rubikssolver;
 
-import rubikssolver.algorithms.*;
+import rubikssolver.algorithms.AAsteriskSolvingAlgorithm;
+import rubikssolver.algorithms.DepthFirstSolvingAlgorithm;
+import rubikssolver.algorithms.MisplacedSquaresSolvingAlgorithm;
+import rubikssolver.algorithms.SolvingAlgorithm;
 import rubikssolver.cube.RubiksCube;
 import rubikssolver.cube.RubiksCubeMixer;
 
@@ -19,7 +22,7 @@ public class RubiksCubeSolver {
     private static final String solveByDepthFirstLetter = "P";
     private static final String solveByBroadFirstLetter = "L";
     private static final String quitLetter = "Q";
-    private static final String heuristicLetter = "H";
+    private static final String aAsteriskLetter = "H";
     private static final String placedSquaresLetter = "C";
 
     static {
@@ -57,20 +60,20 @@ public class RubiksCubeSolver {
                         startAndWaitThenShowExecutionTime(depthFirst);
                         break;
                     case solveByBroadFirstLetter :
-                        LargeurAlgorithm breadthFirst  = new LargeurAlgorithm(cube);
-                        startAndWaitThenShowExecutionTime(breadthFirst);
+//                        LargeurAlgorithm breadthFirst  = new LargeurAlgorithm(cube);
+//                        startAndWaitThenShowExecutionTime(breadthFirst);
                         break;
-                    case heuristicLetter :
+                    case aAsteriskLetter:
                         depth = requestDepthLimit();
                         if (depth == 0) break;
                         System.out.println("La fonction heuristique :");
-                        System.out.printf("   (%s) Nombre de carrés bien placés%n> ", placedSquaresLetter);
+                        System.out.printf("   (%s) Nombre de carrés mal placés%n> ", placedSquaresLetter);
                         String function = input.readLine().toUpperCase();
-                        HeuristicSolvingAlgorithm heuristicSolvingAlgorithm;
+                        AAsteriskSolvingAlgorithm AAsteriskSolvingAlgorithm;
                         switch (function){
                             case placedSquaresLetter :
-                                heuristicSolvingAlgorithm = new PlacedSquaresHeuristicSolvingAlgorithm(cube, depth);
-                                startAndWaitThenShowExecutionTime(heuristicSolvingAlgorithm);
+                                AAsteriskSolvingAlgorithm = new MisplacedSquaresSolvingAlgorithm(cube, depth);
+                                startAndWaitThenShowExecutionTime(AAsteriskSolvingAlgorithm);
                                 break;
                             default :
                                 System.err.println("Choix invalide !");
@@ -93,7 +96,7 @@ public class RubiksCubeSolver {
         acceptableChoices.add(solveByBroadFirstLetter);
         acceptableChoices.add(solveByDepthFirstLetter);
         acceptableChoices.add(quitLetter);
-        acceptableChoices.add(heuristicLetter);
+        acceptableChoices.add(aAsteriskLetter);
         boolean valid = false;
         do {
             System.out.println("                                          o          o          |         ");
@@ -107,7 +110,7 @@ public class RubiksCubeSolver {
                 System.out.printf(" (%s) Mixer le cube%n", mixCubeLetter);
                 System.out.printf(" (%s) Résoudre le cube par l'algorithme largeur d'abord%n", solveByBroadFirstLetter);
                 System.out.printf(" (%s) Résoudre le cube par l'algorithme profondeur d'abord%n", solveByDepthFirstLetter);
-                System.out.printf(" (%s) Résoudre par une algorithme avec heuristique%n", heuristicLetter);
+                System.out.printf(" (%s) Résoudre par l'algorithme A*%n", aAsteriskLetter);
             }
             System.out.printf(" (%s) Quitter%n", quitLetter);
             System.out.print("\n\nLettre : ");
@@ -192,15 +195,22 @@ public class RubiksCubeSolver {
     }
 
     private static void startAndWaitThenShowExecutionTime(SolvingAlgorithm algorithm) throws IOException {
-        algorithm.start();
-        System.out.println("Recherche en cours ...");
         try {
+            System.out.printf("Temps maximal (en secondes) :%n> ");
+            int timeLimit = Integer.parseInt(input.readLine());
+            algorithm.start();
+            System.out.println("Recherche en cours ...");
+            algorithm.join(timeLimit*1000);
+            if (algorithm.isAlive()) algorithm.interrupt();
             algorithm.join();
             ArrayList<String> solution = algorithm.getSteps();
             System.out.printf(solution.isEmpty() ? "Aucune solution trouvée%n" : "Solution trouvé : %s%n", solution);
             System.out.printf("Temps d'exécution : %.3f s | Nombre d'états visités : %d | Nombre d'états abandonés : %d%n", algorithm.getExecutionTime(), algorithm.getTotalStatesCount(), algorithm.getAbandonedStatesCount());
         } catch (InterruptedException e) { // Should not happen
             e.printStackTrace();
+        } catch (NumberFormatException e){
+            System.err.println("Vous devez spécifier une nombre valide !");
+            input.readLine(); // Wait
         }
         input.readLine();
     }
