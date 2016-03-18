@@ -1,9 +1,6 @@
 package rubikssolver;
 
-import rubikssolver.algorithms.AAsteriskSolvingAlgorithm;
-import rubikssolver.algorithms.DepthFirstSolvingAlgorithm;
-import rubikssolver.algorithms.MisplacedSquaresSolvingAlgorithm;
-import rubikssolver.algorithms.SolvingAlgorithm;
+import rubikssolver.algorithms.*;
 import rubikssolver.cube.RubiksCube;
 import rubikssolver.cube.RubiksCubeMixer;
 
@@ -60,8 +57,8 @@ public class RubiksCubeSolver {
                         startAndWaitThenShowExecutionTime(depthFirst);
                         break;
                     case solveByBroadFirstLetter :
-//                        LargeurAlgorithm breadthFirst  = new LargeurAlgorithm(cube);
-//                        startAndWaitThenShowExecutionTime(breadthFirst);
+                        LargeurAlgorithm breadthFirst  = new LargeurAlgorithm(cube);
+                        startAndWaitThenShowExecutionTime(breadthFirst);
                         break;
                     case aAsteriskLetter:
                         depth = requestDepthLimit();
