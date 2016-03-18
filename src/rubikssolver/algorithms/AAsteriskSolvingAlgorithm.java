@@ -7,13 +7,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class HeuristicSolvingAlgorithm extends SolvingAlgorithm {
+public abstract class AAsteriskSolvingAlgorithm extends SolvingAlgorithm {
 
     int maxDepth;
     private HashMap<String, Integer> closed;
     private ArrayList<DepthFirstSolvingAlgorithm.StateAction> open;
 
-    HeuristicSolvingAlgorithm(RubiksCube cube, int limit) {
+    AAsteriskSolvingAlgorithm(RubiksCube cube, int limit) {
         super(cube);
         maxDepth = limit;
         closed = new HashMap<>();
@@ -27,16 +27,17 @@ public abstract class HeuristicSolvingAlgorithm extends SolvingAlgorithm {
             DepthFirstSolvingAlgorithm.StateAction sa = new DepthFirstSolvingAlgorithm.StateAction(null, initialCube.getState(), "");
             open.add(sa);
             while (!open.isEmpty() && !new RubiksCube(sa.state).isSolved()) {
-                int max = heuristic(new RubiksCube(open.get(0).state));
-                int maxIndex = 0;
+                int min = heuristic(new RubiksCube(open.get(0).state));
+                int minIndex = 0;
                 for (int i = 1; i < open.size(); i++) {
-                    int h = heuristic(new RubiksCube(open.get(i).state));
-                    if (h > max) {
-                        max = h;
-                        maxIndex = i;
+                    DepthFirstSolvingAlgorithm.StateAction selectedSA = open.get(i);
+                    int f = heuristic(new RubiksCube(selectedSA.state))+selectedSA.depth;
+                    if (f < min) {
+                        min = f;
+                        minIndex = i;
                     }
                 }
-                sa = open.remove(maxIndex);
+                sa = open.remove(minIndex);
                 if ((!closed.containsKey(sa.state) || closed.get(sa.state) > sa.depth) && sa.depth < maxDepth) {
                     closed.put(sa.state, sa.depth);
                     for (String methodName : methodNames) {
