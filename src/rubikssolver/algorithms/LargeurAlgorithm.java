@@ -1,8 +1,11 @@
-package algorithms;
+package rubikssolver.algorithms;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import rubikssolver.cube.RubiksCube;
+import rubikssolver.cube.RubiksCubeMixer;
 
 public class LargeurAlgorithm extends SolvingAlgorithm {
 
@@ -48,26 +51,34 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
 		super(cube);
 	}
 
-    boolean exists(long rotations){
-    	long [] rotationTable= new long[8];
-    	int rotation = 0,nbrRotation=0;
 
-    	while(rotations!=0){
-    		rotationTable[rotation++]= rotations & 0x000F;
-    		rotations= rotations>>4;
-    		nbrRotation++;
-    	}	nbrRotation++;
-    	for(int i=0;i<nbrRotation-1;i++){
-    		if((rotationTable[i]-1)%2==0){
-    			if(rotationTable[i]==(rotationTable[i+1]-1)){
-
-    		int k=i;
-    		while(rotationTable[k]-1==rotationTable[k+1]-1){k++;}
-    		if((k-i)>3){etatsabondoné++;return false;}
-    	}
-    	
-		return false;
-    }
+    		 boolean exists(long rotations){
+    		    	long [] rotationTable= new long[8];
+    		    	int rotation = 0,nbrRotation=0;
+    		    	
+    		    	while(rotations!=0){
+    		    		rotationTable[rotation++]= rotations & 0x000F;
+    		    		rotations= rotations>>4;
+    		    		nbrRotation++;
+    		    	}
+    		    	for(int i=0;i<nbrRotation-1;i++){
+    		    		if((rotationTable[i]-1)%2==0){
+    		    			if(rotationTable[i]==(rotationTable[i+1]-1)){
+    		    				etatsabondoné++;return false;
+    		    			}
+    		    		}else{
+    		    			if(rotationTable[i]==rotationTable[i+1]+1){
+    		    				etatsabondoné++;return false;
+    		    			}
+    		    		}
+    		    		int k=i;
+    		    		while(rotationTable[k]-1==rotationTable[k+1]-1){k++;}
+    		    		if((k-i)>3){etatsabondoné++;return false;}
+    		    	}
+    		    	
+    				return false;
+    		    }
+   
     boolean ResulteState(long rotations){
     	long [] rotationTable= new long[8];
     	int rotation = 0,nbrRotation=0;
@@ -89,6 +100,7 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
     }
     
 	protected void doOperation() {
+	     try {
 		ArrayList<Long> BigFile= new ArrayList<Long>();
 		for(long i=1;i <= 12;i++ ){
 			BigFile.add(i);
@@ -131,9 +143,15 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
     		steps.add(RubiksCubeMixer.methodNames[(int)(currentState & 0x0000000F)-1]);
     		currentState= currentState>>4;
 			}
-    	System.out.println("\nignored: "+etatsabondoné);
-    	System.out.println("traité: "+etatsGenerés);
-    	System.out.println("niveau "+niveau);
+    	BigFile.clear();
+	     } catch (OutOfMemoryError e) {
+	            System.err.println("Mémoire insuffisante ! impossible de continuer.");
+	        } finally {
+	        	totalStatesCount=etatsGenerés;
+	        	abandonedStatesCount=etatsabondoné;
+	        	System.out.println("niveau "+niveau);
+	        }
+    	
 	}
 
 }
