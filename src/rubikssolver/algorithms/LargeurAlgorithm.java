@@ -1,11 +1,10 @@
 package rubikssolver.algorithms;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import rubikssolver.cube.RubiksCube;
 import rubikssolver.cube.RubiksCubeMixer;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 public class LargeurAlgorithm extends SolvingAlgorithm {
 
@@ -17,7 +16,7 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
 	 private static int lastPercent;
 	 
 	 public static void updatePercentageBar(float progress) {
-	     int percent = (int) Math.round(progress * 100);
+	     int percent = Math.round(progress * 100);
 	     if (Math.abs(percent - lastPercent) >= 1) {
 	         StringBuilder template = new StringBuilder("\r[");
 	         for (int i = 0; i < 50; i++) {
@@ -101,7 +100,7 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
     
 	protected void doOperation() {
 	     try {
-		ArrayList<Long> BigFile= new ArrayList<Long>();
+		ArrayList<Long> BigFile= new ArrayList<>();
 		for(long i=1;i <= 12;i++ ){
 			BigFile.add(i);
 		}
