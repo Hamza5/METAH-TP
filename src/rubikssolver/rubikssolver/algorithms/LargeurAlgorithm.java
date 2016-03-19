@@ -149,7 +149,7 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
 	        } finally {
 	        	totalStatesCount=etatsGenerés;
 	        	abandonedStatesCount=etatsabondoné;
-	        	System.out.println("niveau "+niveau);
+	        	System.out.println("\nniveau "+niveau);
 	        }
     	
 	}

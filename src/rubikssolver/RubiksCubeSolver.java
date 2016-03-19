@@ -1,4 +1,4 @@
-package rubikssolver;
+
 
 import rubikssolver.algorithms.*;
 import rubikssolver.cube.RubiksCube;
