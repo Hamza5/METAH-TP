@@ -1,4 +1,4 @@
-package rubikssolver.cube;
+package cube;
 
 public class RubiksCube {
 
