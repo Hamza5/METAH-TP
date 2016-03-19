@@ -1,6 +1,6 @@
-package rubikssolver.algorithms;
+package algorithms;
 
-import rubikssolver.cube.RubiksCube;
+import cube.RubiksCube;
 
 public class MisplacedSquaresSolvingAlgorithm extends AAsteriskSolvingAlgorithm {
 

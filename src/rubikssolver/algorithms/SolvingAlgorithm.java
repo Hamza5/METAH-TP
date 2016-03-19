@@ -1,6 +1,6 @@
-package rubikssolver.algorithms;
+package algorithms;
 
-import rubikssolver.cube.RubiksCube;
+import cube.RubiksCube;
 
 import java.util.ArrayList;
 

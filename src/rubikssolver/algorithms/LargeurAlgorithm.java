@@ -1,7 +1,7 @@
-package rubikssolver.algorithms;
+package algorithms;
 
-import rubikssolver.cube.RubiksCube;
-import rubikssolver.cube.RubiksCubeMixer;
+import cube.RubiksCube;
+import cube.RubiksCubeMixer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -148,7 +148,7 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
 	        } finally {
 	        	totalStatesCount=etatsGenerés;
 	        	abandonedStatesCount=etatsabondoné;
-	        	System.out.println("niveau "+niveau);
+	        	System.out.println("\nniveau "+niveau);
 	        }
     	
 	}

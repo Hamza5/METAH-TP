@@ -1,8 +1,8 @@
-package rubikssolver;
 
-import rubikssolver.algorithms.*;
-import rubikssolver.cube.RubiksCube;
-import rubikssolver.cube.RubiksCubeMixer;
+
+import algorithms.*;
+import cube.RubiksCube;
+import cube.RubiksCubeMixer;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ public class RubiksCubeSolver {
     private static final String quitLetter = "Q";
     private static final String aAsteriskLetter = "H";
     private static final String placedSquaresLetter = "C";
+    private static final String placedcubiesLetter = "M";
 
     static {
 
@@ -64,12 +65,17 @@ public class RubiksCubeSolver {
                         depth = requestDepthLimit();
                         if (depth == 0) break;
                         System.out.println("La fonction heuristique :");
-                        System.out.printf("   (%s) Nombre de carrés mal placés%n> ", placedSquaresLetter);
+                        System.out.printf("   (%s) Nombre de carrés mal placés %n", placedSquaresLetter);
+                        System.out.printf("   (%s) Nombre de cubes mal placés%n> ", placedcubiesLetter);
                         String function = input.readLine().toUpperCase();
                         AAsteriskSolvingAlgorithm AAsteriskSolvingAlgorithm;
                         switch (function){
                             case placedSquaresLetter :
                                 AAsteriskSolvingAlgorithm = new MisplacedSquaresSolvingAlgorithm(cube, depth);
+                                startAndWaitThenShowExecutionTime(AAsteriskSolvingAlgorithm);
+                                break;
+                            case placedcubiesLetter :
+                                AAsteriskSolvingAlgorithm = new MisplacedCubiesSolvingAlgorithme(cube, depth);
                                 startAndWaitThenShowExecutionTime(AAsteriskSolvingAlgorithm);
                                 break;
                             default :
