@@ -11,7 +11,7 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
 	static final String[] methodNames = new String[]{"up","upInverted","left","leftInverted","right","rightInverted","back","backInverted","down","downInverted","front","frontInverted"};
 	 String initialCubeTester=initialCube.getState();
 	 int etatsGenerés,etatsabondoné,niveau=0; 
-	 RubiksCube cube=initialCube;
+	 RubiksCube cube=new RubiksCube(initialCube.getState());
 	 
 	 private static int lastPercent;
 	 
@@ -111,6 +111,7 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
 		int indiceNiveau=12;
 		float currentPourcentage=0;
 		while(!BigFile.isEmpty() && !Trouvé ){
+			 if (isInterrupted()) throw new InterruptedException();
 			niveuCompteur++;
 			currentState=BigFile.remove(0);
 			if(!exists(currentState)){
@@ -145,11 +146,15 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
     	BigFile.clear();
 	     } catch (OutOfMemoryError e) {
 	            System.err.println("Mémoire insuffisante ! impossible de continuer.");
-	        } finally {
+	        }
+	     catch (InterruptedException e) {
+	            System.out.println("\nRecherche interrompue !");
+	        }  finally {
 	        	totalStatesCount=etatsGenerés;
 	        	abandonedStatesCount=etatsabondoné;
 	        	System.out.println("\nniveau "+niveau);
 	        }
+	   
     	
 	}
 
