@@ -22,6 +22,7 @@ public class RubiksCubeSolver {
     private static final String aAsteriskLetter = "H";
     private static final String placedSquaresLetter = "C";
     private static final String placedcubiesLetter = "M";
+    private static final String manhattanDistanceLetter = "T";
 
     static {
 
@@ -65,8 +66,9 @@ public class RubiksCubeSolver {
                         depth = requestDepthLimit();
                         if (depth == 0) break;
                         System.out.println("La fonction heuristique :");
-                        System.out.printf("   (%s) Nombre de carrés mal placés %n", placedSquaresLetter);
-                        System.out.printf("   (%s) Nombre de cubes mal placés%n> ", placedcubiesLetter);
+                        System.out.printf("   (%s) Nombre de carrés mal placés%n", placedSquaresLetter);
+                        System.out.printf("   (%s) Nombre de cubes mal placés%n", placedcubiesLetter);
+                        System.out.printf("   (%s) Distance de Manhattan%n> ", manhattanDistanceLetter);
                         String function = input.readLine().toUpperCase();
                         AAsteriskSolvingAlgorithm AAsteriskSolvingAlgorithm;
                         switch (function){
@@ -76,6 +78,10 @@ public class RubiksCubeSolver {
                                 break;
                             case placedcubiesLetter :
                                 AAsteriskSolvingAlgorithm = new MisplacedCubiesSolvingAlgorithme(cube, depth);
+                                startAndWaitThenShowExecutionTime(AAsteriskSolvingAlgorithm);
+                                break;
+                            case manhattanDistanceLetter:
+                                AAsteriskSolvingAlgorithm = new ManhattanDistanceSolvingAlgorithm(cube, depth);
                                 startAndWaitThenShowExecutionTime(AAsteriskSolvingAlgorithm);
                                 break;
                             default :
