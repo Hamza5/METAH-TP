@@ -1,7 +1,7 @@
-package algorithms;
+package rubikssolver.algorithms;
 
-import cube.RubiksCube;
-import cube.RubiksCubeMixer;
+import rubikssolver.cube.RubiksCube;
+import rubikssolver.cube.RubiksCubeMixer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

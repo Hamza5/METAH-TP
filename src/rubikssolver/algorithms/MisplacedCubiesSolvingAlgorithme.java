@@ -1,14 +1,13 @@
-package algorithms;
+package rubikssolver.algorithms;
 
-import cube.RubiksCube;
+import rubikssolver.cube.RubiksCube;
 
 public class MisplacedCubiesSolvingAlgorithme extends AAsteriskSolvingAlgorithm {
 
 	public MisplacedCubiesSolvingAlgorithme(RubiksCube cube, int limit) {
 		super(cube, limit);
 	}
-	String CubeState;
-	String Test=new String();
+
 	@Override
 	protected int heuristic(RubiksCube cube) {
 		int heuristique=52;

@@ -1,4 +1,4 @@
-package cube;
+package rubikssolver.cube;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

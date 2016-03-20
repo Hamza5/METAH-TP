@@ -1,8 +1,8 @@
+package rubikssolver;
 
-
-import algorithms.*;
-import cube.RubiksCube;
-import cube.RubiksCubeMixer;
+import rubikssolver.algorithms.*;
+import rubikssolver.cube.RubiksCube;
+import rubikssolver.cube.RubiksCubeMixer;
 
 import java.io.*;
 import java.util.ArrayList;
