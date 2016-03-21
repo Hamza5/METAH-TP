@@ -1,8 +1,7 @@
 package rubikssolver;
 
 import rubikssolver.algorithms.*;
-import rubikssolver.cube.RubiksCube;
-import rubikssolver.cube.RubiksCubeMixer;
+import rubikssolver.cube.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -218,7 +217,7 @@ public class RubiksCubeSolver {
         } catch (InterruptedException e) { // Should not happen
             e.printStackTrace();
         } catch (NumberFormatException e){
-            System.err.println("Vous devez spécifier une nombre valide !");
+            System.err.println("Vous devez spécifier un nombre valide !");
             input.readLine(); // Wait
         }
         input.readLine();
