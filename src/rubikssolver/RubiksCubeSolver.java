@@ -22,6 +22,7 @@ public class RubiksCubeSolver {
     private static final String placedSquaresLetter = "C";
     private static final String placedcubiesLetter = "M";
     private static final String manhattanDistanceLetter = "T";
+    private static final String solvedCubeLetter = "R";
 
     static {
 
@@ -40,6 +41,9 @@ public class RubiksCubeSolver {
             do {
                 choice = displayMenu();
                 switch (choice) {
+                    case solvedCubeLetter :
+                        cube = new RubiksCube();
+                        break;
                     case generateCubeLetter :
                         requestCubeFilePath();
                         break;
@@ -105,6 +109,7 @@ public class RubiksCubeSolver {
         acceptableChoices.add(solveByDepthFirstLetter);
         acceptableChoices.add(quitLetter);
         acceptableChoices.add(aAsteriskLetter);
+        acceptableChoices.add(solvedCubeLetter);
         boolean valid = false;
         do {
             System.out.println("                                          o          o          |         ");
@@ -112,6 +117,7 @@ public class RubiksCubeSolver {
             System.out.println("   | | ||---'|   ||   ||---'    |   ||    ||   ||    ||   |,---||    |---'");
             System.out.println("   ` ' '`---'`   '`---'`---'    |---'`    ``   '`---'`|---'`---^`---'`---'");
             System.out.println("                                |                     |                   ");
+            System.out.printf(" (%s) Générer un cube lisse%n", solvedCubeLetter);
             System.out.printf(" (%s) Générer un cube à partir d'un fichier%n", generateCubeLetter);
             if (cube != null) {
                 System.out.printf(" (%s) Afficher une représentation du cube%n", showCubeRepresentationLetter);
@@ -127,7 +133,7 @@ public class RubiksCubeSolver {
                 System.err.printf("Les choix autorisés sont : %s !%n", acceptableChoices);
                 input.readLine();
             } else valid = true;
-        } while (!valid || (cube == null && (!choice.equals(quitLetter) && !choice.equals(generateCubeLetter))));
+        } while (!valid || (cube == null && (!choice.equals(quitLetter) && !choice.equals(generateCubeLetter) && !choice.equals(solvedCubeLetter))));
         return choice;
     }
 
