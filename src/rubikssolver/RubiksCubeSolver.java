@@ -1,8 +1,7 @@
 package rubikssolver;
 
 import rubikssolver.algorithms.*;
-import rubikssolver.cube.RubiksCube;
-import rubikssolver.cube.RubiksCubeMixer;
+import rubikssolver.cube.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -23,6 +22,8 @@ public class RubiksCubeSolver {
     private static final String placedSquaresLetter = "C";
     private static final String placedcubiesLetter = "M";
     private static final String manhattanDistanceLetter = "T";
+    private static final String solvedCubeLetter = "R";
+    private static final String saveFileLetter = "S";
 
     static {
 
@@ -41,6 +42,9 @@ public class RubiksCubeSolver {
             do {
                 choice = displayMenu();
                 switch (choice) {
+                    case solvedCubeLetter :
+                        cube = new RubiksCube();
+                        break;
                     case generateCubeLetter :
                         requestCubeFilePath();
                         break;
@@ -62,7 +66,7 @@ public class RubiksCubeSolver {
                         LargeurAlgorithm breadthFirst  = new LargeurAlgorithm(cube);
                         startAndWaitThenShowExecutionTime(breadthFirst);
                         break;
-                    case aAsteriskLetter:
+                    case aAsteriskLetter :
                         depth = requestDepthLimit();
                         if (depth == 0) break;
                         System.out.println("La fonction heuristique :");
@@ -80,7 +84,7 @@ public class RubiksCubeSolver {
                                 AAsteriskSolvingAlgorithm = new MisplacedCubiesSolvingAlgorithme(cube, depth);
                                 startAndWaitThenShowExecutionTime(AAsteriskSolvingAlgorithm);
                                 break;
-                            case manhattanDistanceLetter:
+                            case manhattanDistanceLetter :
                                 AAsteriskSolvingAlgorithm = new ManhattanDistanceSolvingAlgorithm(cube, depth);
                                 startAndWaitThenShowExecutionTime(AAsteriskSolvingAlgorithm);
                                 break;
@@ -88,6 +92,9 @@ public class RubiksCubeSolver {
                                 System.err.println("Choix invalide !");
                                 input.readLine();
                         }
+                        break;
+                    case saveFileLetter :
+                        saveToFile();
                         break;
                 }
             } while (!choice.equals(quitLetter));
@@ -106,6 +113,8 @@ public class RubiksCubeSolver {
         acceptableChoices.add(solveByDepthFirstLetter);
         acceptableChoices.add(quitLetter);
         acceptableChoices.add(aAsteriskLetter);
+        acceptableChoices.add(solvedCubeLetter);
+        acceptableChoices.add(saveFileLetter);
         boolean valid = false;
         do {
             System.out.println("                                          o          o          |         ");
@@ -113,10 +122,12 @@ public class RubiksCubeSolver {
             System.out.println("   | | ||---'|   ||   ||---'    |   ||    ||   ||    ||   |,---||    |---'");
             System.out.println("   ` ' '`---'`   '`---'`---'    |---'`    ``   '`---'`|---'`---^`---'`---'");
             System.out.println("                                |                     |                   ");
+            System.out.printf(" (%s) Générer un cube lisse%n", solvedCubeLetter);
             System.out.printf(" (%s) Générer un cube à partir d'un fichier%n", generateCubeLetter);
             if (cube != null) {
                 System.out.printf(" (%s) Afficher une représentation du cube%n", showCubeRepresentationLetter);
                 System.out.printf(" (%s) Mixer le cube%n", mixCubeLetter);
+                System.out.printf(" (%s) Sauvegarder la représentation dans un fichier%n", saveFileLetter);
                 System.out.printf(" (%s) Résoudre le cube par l'algorithme largeur d'abord%n", solveByBroadFirstLetter);
                 System.out.printf(" (%s) Résoudre le cube par l'algorithme profondeur d'abord%n", solveByDepthFirstLetter);
                 System.out.printf(" (%s) Résoudre par l'algorithme A*%n", aAsteriskLetter);
@@ -128,7 +139,7 @@ public class RubiksCubeSolver {
                 System.err.printf("Les choix autorisés sont : %s !%n", acceptableChoices);
                 input.readLine();
             } else valid = true;
-        } while (!valid || (cube == null && (!choice.equals(quitLetter) && !choice.equals(generateCubeLetter))));
+        } while (!valid || (cube == null && (!choice.equals(quitLetter) && !choice.equals(generateCubeLetter) && !choice.equals(solvedCubeLetter))));
         return choice;
     }
 
@@ -200,6 +211,7 @@ public class RubiksCubeSolver {
             if (line.matches("[wbrogy]{3}")) representation.append(line);
             else throw new IllegalArgumentException();
         }
+        reader.close();
         return representation.toString();
     }
 
@@ -218,10 +230,61 @@ public class RubiksCubeSolver {
         } catch (InterruptedException e) { // Should not happen
             e.printStackTrace();
         } catch (NumberFormatException e){
-            System.err.println("Vous devez spécifier une nombre valide !");
+            System.err.println("Vous devez spécifier un nombre valide !");
             input.readLine(); // Wait
         }
         input.readLine();
+    }
+
+    private static void saveToFile() throws IOException {
+        try {
+            System.out.printf("Nom du nouveau fichier :%n> ");
+            String filePath = input.readLine();
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filePath));
+            fileWriter.write("# Rubik's cube representation");
+            fileWriter.newLine();
+            String state = cube.getState();
+            fileWriter.write("# Up");
+            fileWriter.newLine();
+            for (int i = 0; i < 9; i+=3){
+                fileWriter.write(state.substring(i, i+3));
+                fileWriter.newLine();
+            }
+            fileWriter.write("# Front");
+            fileWriter.newLine();
+            for (int i = 9; i < 18; i+=3){
+                fileWriter.write(state.substring(i, i+3));
+                fileWriter.newLine();
+            }
+            fileWriter.write("# Left");
+            fileWriter.newLine();
+            for (int i = 18; i < 27; i+=3){
+                fileWriter.write(state.substring(i, i+3));
+                fileWriter.newLine();
+            }
+            fileWriter.write("# Right");
+            fileWriter.newLine();
+            for (int i = 27; i < 36; i+=3){
+                fileWriter.write(state.substring(i, i+3));
+                fileWriter.newLine();
+            }
+            fileWriter.write("# Back");
+            fileWriter.newLine();
+            for (int i = 36; i < 45; i+=3){
+                fileWriter.write(state.substring(i, i+3));
+                fileWriter.newLine();
+            }
+            fileWriter.write("# Down");
+            fileWriter.newLine();
+            for (int i = 45; i < 54; i+=3){
+                fileWriter.write(state.substring(i, i+3));
+                fileWriter.newLine();
+            }
+            fileWriter.close();
+        } catch (IOException e){
+            System.err.println("Impossible d'écrire dans le fchier !");
+            input.readLine();
+        }
     }
 
 }
