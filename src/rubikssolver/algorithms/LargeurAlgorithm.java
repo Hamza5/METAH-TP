@@ -55,7 +55,7 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
    	 if((M1==0 || M1==1) &&(M2==8 || M2==9) ) return true;
    	 if((M1==2 || M1==3) &&(M2==4 || M2==5) ) return true;
    	 if((M1==2 || M1==3) &&(M2==4 || M2==5) ) return true;
-      	 if((M1==6 || M1==7) &&(M2==10 || M2==11) ) return true;
+     if((M1==6 || M1==7) &&(M2==10 || M2==11) ) return true;
 		return false;
     }
 	 boolean exists(int rotations){
@@ -77,10 +77,10 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
 	    				etatsabondoné++;return false;
 	    			}
 	    		}
-	    		int k=i;
-	    		while((rotationTable[k]-1==rotationTable[k+1]-1)||faceMove(rotationTable[k]-1,rotationTable[k+1]-1)||faceMove(rotationTable[k+1]-1,rotationTable[k]-1)){
-	    			if(!faceMove(rotationTable[k]-1,rotationTable[k+1]-1)&&!faceMove(rotationTable[k+1]-1,rotationTable[k]-1))
-	    			k++;}
+	    		int k=i,l=i;
+	    		while((rotationTable[l]-1==rotationTable[l+1]-1)||faceMove(rotationTable[l]-1,rotationTable[l+1]-1)||faceMove(rotationTable[l+1]-1,rotationTable[l]-1))
+	    		{if((rotationTable[l]-1==rotationTable[l+1]-1)){k++; l++;}else l++;
+	    		}
 	    		if((k-i)>3){etatsabondoné++;return false;}
 	    	}
 	    	
@@ -147,6 +147,7 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
 					}
 				}
 			}
+		
 		}
     	while(currentState!=0){
     		steps.add(RubiksCubeMixer.methodNames[(int)(currentState & 0x0000000F)-1]);
