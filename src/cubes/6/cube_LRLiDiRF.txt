@@ -1,0 +1,25 @@
+# Rubik's cube representation
+# Up
+wwy
+wwy
+yrr
+# Front
+obb
+obb
+yyg
+# Left
+rrg
+rrg
+bbr
+# Right
+woo
+woo
+ooo
+# Back
+bgg
+bgg
+brr
+# Down
+wyy
+wyy
+wgg
