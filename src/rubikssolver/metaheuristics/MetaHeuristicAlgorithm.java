@@ -9,17 +9,22 @@ import java.util.HashSet;
 
 public abstract class MetaHeuristicAlgorithm extends Thread {
 
-    protected RubiksCube cube;
-    protected ArrayList<String> solution; // Succession des rotations, ex : ["up", "left", "rightInverted", "down"]
+    final protected RubiksCube cube;
+    int maxIterations;
+    ArrayList<String> solution; // Succession des rotations, ex : ["up", "left", "rightInverted", "down"]
     private long startTime;
     private long endTime;
+    final int bestQuality;
+    int currentIterations;
 
-    public MetaHeuristicAlgorithm(RubiksCube initialCube, ArrayList<String> initialSolution){
+    MetaHeuristicAlgorithm(RubiksCube initialCube, ArrayList<String> initialSolution, int iterations){
         solution = initialSolution;
         cube = initialCube;
+        maxIterations = iterations;
+        bestQuality = quality(new RubiksCube(), new ArrayList<String>());
     }
 
-    public HashSet<ArrayList<String>> getNeighbors(){ // Fonction de voisinage
+    static HashSet<ArrayList<String>> getNeighbors(ArrayList<String> solution){ // Fonction de voisinage
         String[] methods = RubiksCubeMixer.getMethodNames();
         int solutionsCount = solution.size() * methods.length;
         HashSet<ArrayList<String>> solutions = new HashSet<>(solutionsCount - solution.size());
@@ -32,7 +37,7 @@ public abstract class MetaHeuristicAlgorithm extends Thread {
         return solutions;
     }
 
-    private static int quality(RubiksCube cube, ArrayList<String> solution){
+    static int quality(RubiksCube cube, ArrayList<String> solution){
         RubiksCube generatedCube = new RubiksCube(cube.getState());
         int s = 0;
         for (String rotation : solution)
@@ -55,7 +60,7 @@ public abstract class MetaHeuristicAlgorithm extends Thread {
         return s;
     }
 
-    public static ArrayList<String> getBestSolution(RubiksCube cube, HashSet<ArrayList<String>> solutions){
+    static ArrayList<String> getBestSolution(RubiksCube cube, HashSet<ArrayList<String>> solutions){
         int maxQuality = 0;
         ArrayList<String> bestSolution = null;
         for (ArrayList<String> solution : solutions){
@@ -75,7 +80,7 @@ public abstract class MetaHeuristicAlgorithm extends Thread {
         doAfter();
     }
 
-    protected abstract void doOperation();
+    abstract void doOperation();
 
     private void doBefore(){
         startTime = System.currentTimeMillis();
@@ -93,4 +98,11 @@ public abstract class MetaHeuristicAlgorithm extends Thread {
         return solution;
     }
 
+    public int getIterations() {
+        return currentIterations;
+    }
+
+    public boolean solutionFound(){
+        return quality(cube, solution) == bestQuality;
+    }
 }

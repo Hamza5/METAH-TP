@@ -2,6 +2,7 @@ package rubikssolver;
 
 import rubikssolver.algorithms.*;
 import rubikssolver.cube.*;
+import rubikssolver.metaheuristics.LocalSearchAlgorithm;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,12 +25,13 @@ public class RubiksCubeSolver {
     private static final String manhattanDistanceLetter = "T";
     private static final String solvedCubeLetter = "R";
     private static final String saveFileLetter = "S";
+    private static final String localSerachLetters = "LS";
 
     static {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         if (args.length == 1) {
             try {
                 if (checkFile(args[0])) cube = new RubiksCube(readFile(args[0]));
@@ -93,6 +95,15 @@ public class RubiksCubeSolver {
                                 input.readLine();
                         }
                         break;
+                    case localSerachLetters :
+                        RubiksCubeMixer mixer = new RubiksCubeMixer(new RubiksCube());
+                        mixer.mixCube(10);
+                        LocalSearchAlgorithm localSearch = new LocalSearchAlgorithm(cube, mixer.getActions(), 1000);
+                        localSearch.start();
+                        localSearch.join();
+                        System.out.printf("%s%nTemps d'exécution : %.3f s | Nombre d'itérations : %d%n", localSearch.solutionFound() ? "Solution trouvée : "+localSearch.getSolution() : "Aucune solution touvée", localSearch.getExecutionTime(), localSearch.getIterations());
+                        input.readLine();
+                        break;
                     case saveFileLetter :
                         saveToFile();
                         break;
@@ -115,6 +126,7 @@ public class RubiksCubeSolver {
         acceptableChoices.add(aAsteriskLetter);
         acceptableChoices.add(solvedCubeLetter);
         acceptableChoices.add(saveFileLetter);
+        acceptableChoices.add(localSerachLetters);
         boolean valid = false;
         do {
             System.out.println("                                          o          o          |         ");
@@ -131,6 +143,7 @@ public class RubiksCubeSolver {
                 System.out.printf(" (%s) Résoudre le cube par l'algorithme largeur d'abord%n", solveByBroadFirstLetter);
                 System.out.printf(" (%s) Résoudre le cube par l'algorithme profondeur d'abord%n", solveByDepthFirstLetter);
                 System.out.printf(" (%s) Résoudre par l'algorithme A*%n", aAsteriskLetter);
+                System.out.printf(" (%s) Résoudre par la métaheuristique de la recherche locale%n", localSerachLetters);
             }
             System.out.printf(" (%s) Quitter%n", quitLetter);
             System.out.print("\n\nLettre : ");
