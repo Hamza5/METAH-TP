@@ -5,6 +5,7 @@ import rubikssolver.cube.RubiksCubeMixer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class LargeurAlgorithm extends SolvingAlgorithm {
 
@@ -109,7 +110,7 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
     
 	protected void doOperation() {
 	     try {
-		ArrayList<Integer> BigFile= new ArrayList<>();
+	    	 LinkedList<Integer> BigFile= new LinkedList<>();
 		for(int i=1;i <= 12;i++ ){
 			BigFile.add(i);
 		}
@@ -128,18 +129,18 @@ public class LargeurAlgorithm extends SolvingAlgorithm {
 				}else{	
 					int TobeAdd;
 					etatsGenerés++;
-					if(niveuCompteur>indiceNiveau){
-						niveau++;
-						indiceNiveau=BigFile.size();
-						niveuCompteur=0;
-						System.out.println("\nniveau "+niveau);
-					}
-					if((int)( niveuCompteur/(float)(indiceNiveau+1)*100) !=(int) currentPourcentage)
-					{
-						updatePercentageBar((niveuCompteur/(float)(indiceNiveau)));
-					
-					//System.out.print((int) (niveuCompteur/(float)(indiceNiveau)*100)+"% ");
-					currentPourcentage=niveuCompteur/(float)(indiceNiveau)*100;}
+//					if(niveuCompteur>indiceNiveau){
+//						niveau++;
+//						indiceNiveau=BigFile.size();
+//						niveuCompteur=0;
+//						System.out.println("\nniveau "+niveau);
+//					}
+//					if((int)( niveuCompteur/(float)(indiceNiveau+1)*100) !=(int) currentPourcentage)
+//					{
+//						updatePercentageBar((niveuCompteur/(float)(indiceNiveau)));
+//					
+//					//System.out.print((int) (niveuCompteur/(float)(indiceNiveau)*100)+"% ");
+//					currentPourcentage=niveuCompteur/(float)(indiceNiveau)*100;}
 					for(int i=1;i <= 12;i++ ){
 						TobeAdd=currentState<<4 ;
 						TobeAdd=TobeAdd + i ;
