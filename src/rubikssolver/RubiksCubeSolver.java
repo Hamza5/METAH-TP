@@ -96,12 +96,18 @@ public class RubiksCubeSolver {
                         }
                         break;
                     case localSerachLetters :
-                        RubiksCubeMixer mixer = new RubiksCubeMixer(new RubiksCube());
-                        mixer.mixCube(10);
-                        LocalSearchAlgorithm localSearch = new LocalSearchAlgorithm(cube, mixer.getActions(), 1000);
-                        localSearch.start();
-                        localSearch.join();
-                        System.out.printf("%s%nTemps d'exécution : %.3f s | Nombre d'itérations : %d%n", localSearch.solutionFound() ? "Solution trouvée : "+localSearch.getSolution() : "Aucune solution touvée", localSearch.getExecutionTime(), localSearch.getIterations());
+                        System.out.printf("Taille de la solution :%n> ");
+                        try {
+                            int solutionSize = Integer.parseInt(input.readLine());
+                            RubiksCubeMixer mixer = new RubiksCubeMixer(new RubiksCube());
+                            mixer.mixCube(solutionSize);
+                            LocalSearchAlgorithm localSearch = new LocalSearchAlgorithm(cube, mixer.getActions(), 10000);
+                            localSearch.start();
+                            localSearch.join();
+                            System.out.printf("%s%nTemps d'exécution : %.3f s | Nombre d'itérations : %d%n", localSearch.solutionFound() ? "Solution trouvée : "+localSearch.getSolution() : "Aucune solution touvée", localSearch.getExecutionTime(), localSearch.getIterations());
+                        } catch (NumberFormatException e){
+                            System.err.println("Vous devez spécifier un nombre valide !");
+                        }
                         input.readLine();
                         break;
                     case saveFileLetter :

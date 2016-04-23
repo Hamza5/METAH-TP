@@ -7,29 +7,36 @@ import java.util.HashSet;
 
 public class LocalSearchAlgorithm extends MetaHeuristicAlgorithm {
 
+    private HashSet<ArrayList<String>> tabu;
+
     public LocalSearchAlgorithm(RubiksCube initialCube, ArrayList<String> initialSolution, int iterations) {
         super(initialCube, initialSolution, iterations);
+        tabu = new HashSet<>();
     }
 
     @Override
-    protected void doOperation() { // Recherche avec voisinage étoile
+    protected void doOperation() {
         int i;
         outer:for (i = 0; i < maxIterations; i++) {
             ArrayList<String> partialSolution = new ArrayList<>();
             for (int j=0; j<solution.size(); j++) {
                 partialSolution.add(solution.get(j));
-                if (quality(cube, partialSolution) == bestQuality) {
+                if (quality(cube, partialSolution) == bestQuality){ // Solution trouvée
                     solution = partialSolution;
                     break outer;
                 }
             }
-            if (quality(cube, solution) == bestQuality) break;
-            HashSet<ArrayList<String>> neighbors = getNeighbors(solution);
-            ArrayList<String> bestNeighbor = getBestSolution(cube, neighbors);
-            if (quality(cube, bestNeighbor) <= quality(cube ,solution)) break;
-            else solution = bestNeighbor;
+            HashSet<ArrayList<String>> neighbors = getNeighbors(solution); // Tous les voisins
+            HashSet<ArrayList<String>> nonTabuNeighbors = new HashSet<>(neighbors);
+            nonTabuNeighbors.removeAll(tabu); // Supprimer les voisins qui sont dans la liste tabou
+            if (!nonTabuNeighbors.isEmpty()){ // Intensifier
+                solution = getBestSolution(cube, nonTabuNeighbors); // Recherche en voisinage en anneau
+                tabu.add(solution);
+            } else { // Diversifier
+                solution = getBestSolution(cube, tabu);
+            }
         }
-        currentIterations = i+1;
+        currentIterations = i;
     }
 
 }
