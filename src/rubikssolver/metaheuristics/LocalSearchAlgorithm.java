@@ -33,7 +33,9 @@ public class LocalSearchAlgorithm extends MetaHeuristicAlgorithm {
                 solution = getBestSolution(cube, nonTabuNeighbors); // Recherche en voisinage en anneau
                 tabu.add(solution);
             } else { // Diversifier
-                solution = getBestSolution(cube, tabu);
+                ArrayList<String> tabuBestSolution = getBestSolution(cube, tabu);
+                tabu.remove(tabuBestSolution);
+                solution = tabuBestSolution;
             }
         }
         currentIterations = i;
