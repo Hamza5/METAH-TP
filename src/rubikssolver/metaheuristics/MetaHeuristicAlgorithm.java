@@ -73,6 +73,12 @@ public abstract class MetaHeuristicAlgorithm extends Thread {
         return bestSolution;
     }
 
+    static ArrayList<String> getRandomSolution(int size){
+        RubiksCubeMixer mixer = new RubiksCubeMixer(new RubiksCube());
+        mixer.mixCube(size);
+        return mixer.getActions();
+    }
+
     @Override
     public void run(){
         doBefore();
