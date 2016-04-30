@@ -2,7 +2,9 @@ package rubikssolver;
 
 import rubikssolver.algorithms.*;
 import rubikssolver.cube.*;
+import rubikssolver.metaheuristics.GeneticAlgorithm;
 import rubikssolver.metaheuristics.LocalSearchAlgorithm;
+import rubikssolver.metaheuristics.MetaHeuristicAlgorithm;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class RubiksCubeSolver {
     private static final String solvedCubeLetter = "R";
     private static final String saveFileLetter = "S";
     private static final String localSerachLetters = "LS";
+    private static final String geneticAlgorithmLetters = "GA";
 
     static {
 
@@ -96,17 +99,18 @@ public class RubiksCubeSolver {
                         }
                         break;
                     case localSerachLetters :
-                        System.out.printf("Taille de la solution :%n> ");
-                        try {
-                            int solutionSize = Integer.parseInt(input.readLine());
-                            RubiksCubeMixer mixer = new RubiksCubeMixer(new RubiksCube());
-                            mixer.mixCube(solutionSize);
-                            LocalSearchAlgorithm localSearch = new LocalSearchAlgorithm(cube, mixer.getActions(), 10000);
-                            localSearch.start();
-                            localSearch.join();
-                            System.out.printf("%s%nTemps d'exécution : %.3f s | Nombre d'itérations : %d%n", localSearch.solutionFound() ? "Solution trouvée : "+localSearch.getSolution() : "Aucune solution touvée", localSearch.getExecutionTime(), localSearch.getIterations());
-                        } catch (NumberFormatException e){
-                            System.err.println("Vous devez spécifier un nombre valide !");
+                        ArrayList<String> s = getRandomSolution();
+                        if (s != null){
+                            LocalSearchAlgorithm localSearch = new LocalSearchAlgorithm(cube, s, 10000);
+                            startMetaHeuristicAndWait(localSearch);
+                        }
+                        input.readLine();
+                        break;
+                    case geneticAlgorithmLetters :
+                        s = getRandomSolution();
+                        if (s != null){
+                            GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(cube, s, 10000, 100, 0.8f, 0.15f);
+                            startMetaHeuristicAndWait(geneticAlgorithm);
                         }
                         input.readLine();
                         break;
@@ -133,6 +137,7 @@ public class RubiksCubeSolver {
         acceptableChoices.add(solvedCubeLetter);
         acceptableChoices.add(saveFileLetter);
         acceptableChoices.add(localSerachLetters);
+        acceptableChoices.add(geneticAlgorithmLetters);
         boolean valid = false;
         do {
             System.out.println("                                          o          o          |         ");
@@ -150,6 +155,7 @@ public class RubiksCubeSolver {
                 System.out.printf(" (%s) Résoudre le cube par l'algorithme profondeur d'abord%n", solveByDepthFirstLetter);
                 System.out.printf(" (%s) Résoudre par l'algorithme A*%n", aAsteriskLetter);
                 System.out.printf(" (%s) Résoudre par la métaheuristique de la recherche locale%n", localSerachLetters);
+                System.out.printf(" (%s) Résoudre par l'algorithme génétique%n", geneticAlgorithmLetters);
             }
             System.out.printf(" (%s) Quitter%n", quitLetter);
             System.out.print("\n\nLettre : ");
@@ -303,6 +309,29 @@ public class RubiksCubeSolver {
         } catch (IOException e){
             System.err.println("Impossible d'écrire dans le fchier !");
             input.readLine();
+        }
+    }
+
+    private static ArrayList<String> getRandomSolution() throws IOException {
+        try {
+            System.out.printf("Taille de la solution :%n> ");
+            int solutionSize = Integer.parseInt(input.readLine());
+            RubiksCubeMixer mixer = new RubiksCubeMixer(new RubiksCube());
+            mixer.mixCube(solutionSize);
+            return mixer.getActions();
+        } catch (NumberFormatException e){
+            System.err.println("Vous devez spécifier un nombre valide !");
+            return null;
+        }
+    }
+
+    private static void startMetaHeuristicAndWait(MetaHeuristicAlgorithm algorithm) {
+        try {
+            algorithm.start();
+            algorithm.join();
+            System.out.printf("%s%nTemps d'exécution : %.3f s | Nombre d'itérations : %d%n", algorithm.solutionFound() ? "Solution trouvée : "+algorithm.getSolution() : "Aucune solution touvée", algorithm.getExecutionTime(), algorithm.getIterations());
+        } catch (InterruptedException e) { // Should not happen
+            e.printStackTrace();
         }
     }
 
