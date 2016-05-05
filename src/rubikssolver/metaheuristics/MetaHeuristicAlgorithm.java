@@ -111,4 +111,8 @@ public abstract class MetaHeuristicAlgorithm extends Thread {
     public boolean solutionFound(){
         return quality(cube, solution) == bestQuality;
     }
+
+    public float getQuality() {
+        return quality(cube, solution) / (float) bestQuality;
+    }
 }
