@@ -329,7 +329,7 @@ public class RubiksCubeSolver {
         try {
             algorithm.start();
             algorithm.join();
-            System.out.printf("%s%nTemps d'exécution : %.3f s | Nombre d'itérations : %d%n", algorithm.solutionFound() ? "Solution trouvée : "+algorithm.getSolution() : "Aucune solution touvée", algorithm.getExecutionTime(), algorithm.getIterations());
+            System.out.printf("%s :%n%s, Qualité : %.2f%%%nTemps d'exécution : %.3f s | Nombre d'itérations : %d%n", (algorithm.solutionFound() ? "Solution trouvée" : "Aucune solution touvée, la meilleure"), algorithm.getSolution(), algorithm.getQuality()*100,algorithm.getExecutionTime(), algorithm.getIterations());
         } catch (InterruptedException e) { // Should not happen
             e.printStackTrace();
         }

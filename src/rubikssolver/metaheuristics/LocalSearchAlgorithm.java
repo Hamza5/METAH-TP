@@ -39,7 +39,7 @@ public class LocalSearchAlgorithm extends MetaHeuristicAlgorithm {
             }
         }
         currentIterations = i;
-        if (currentIterations == maxIterations) solution = getBestSolution(cube, tabu); // Retourner la meilleurs solution si on a atteint le max
+        if (currentIterations == maxIterations) solution = getBestSolution(cube, tabu); // Retourner la meilleure solution si on a atteint le max
     }
 
 }
