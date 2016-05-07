@@ -109,7 +109,7 @@ public class RubiksCubeSolver {
                     case geneticAlgorithmLetters :
                         s = getRandomSolution();
                         if (s != null){
-                            GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(cube, s, 10000, 100, 0.8f, 0.15f);
+                            GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(cube, s, 1000, 1000, 0.8f, 0.1f);
                             startMetaHeuristicAndWait(geneticAlgorithm);
                         }
                         input.readLine();

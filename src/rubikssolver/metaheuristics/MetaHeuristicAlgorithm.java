@@ -5,6 +5,7 @@ import rubikssolver.cube.RubiksCubeMixer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 
 public abstract class MetaHeuristicAlgorithm extends Thread {
@@ -60,7 +61,7 @@ public abstract class MetaHeuristicAlgorithm extends Thread {
         return s;
     }
 
-    static ArrayList<String> getBestSolution(RubiksCube cube, HashSet<ArrayList<String>> solutions){
+    static ArrayList<String> getBestSolution(RubiksCube cube, Collection<ArrayList<String>> solutions){
         int maxQuality = 0;
         ArrayList<String> bestSolution = null;
         for (ArrayList<String> solution : solutions){
