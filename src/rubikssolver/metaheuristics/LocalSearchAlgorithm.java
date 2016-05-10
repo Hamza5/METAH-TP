@@ -17,15 +17,8 @@ public class LocalSearchAlgorithm extends MetaHeuristicAlgorithm {
     @Override
     protected void doOperation() {
         int i;
-        outer:for (i = 0; i < maxIterations; i++) {
-            ArrayList<String> partialSolution = new ArrayList<>();
-            for (int j=0; j<solution.size(); j++) {
-                partialSolution.add(solution.get(j));
-                if (quality(cube, partialSolution) == bestQuality){ // Solution trouvée
-                    solution = partialSolution;
-                    break outer;
-                }
-            }
+        for (i = 0; i < maxIterations; i++){
+            if (quality(cube, solution) == bestQuality) break; // Solution trouvée
             HashSet<ArrayList<String>> neighbors = getNeighbors(solution); // Tous les voisins
             HashSet<ArrayList<String>> nonTabuNeighbors = new HashSet<>(neighbors);
             nonTabuNeighbors.removeAll(tabu); // Supprimer les voisins qui sont dans la liste tabou
