@@ -101,7 +101,7 @@ public class RubiksCubeSolver {
                     case localSerachLetters :
                         ArrayList<String> s = getRandomSolution();
                         if (s != null){
-                            LocalSearchAlgorithm localSearch = new LocalSearchAlgorithm(cube, s, 10000);
+                            LocalSearchAlgorithm localSearch = new LocalSearchAlgorithm(cube, s, (int) (4* Math.pow(s.size(), 4)));
                             startMetaHeuristicAndWait(localSearch);
                         }
                         input.readLine();
